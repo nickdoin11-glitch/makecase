@@ -29,7 +29,7 @@
         h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 4rem); margin: 0; text-transform: uppercase; position: relative; display: inline-block; }
         h1::after { content: ""; position: absolute; bottom: 5px; left: 0; width: 100%; height: 10px; background: var(--ribbon-pink); z-index: -1; opacity: 0.6; border-radius: 50px; }
 
-        /* FIXED: Using Flex with flex-start prevents the cards from stretching each other */
+        /* THE FIX: align-items: flex-start ensures cards don't stretch to match heights */
         .container { 
             max-width: 1240px; 
             margin: 0 auto; 
@@ -38,7 +38,7 @@
             justify-content: center;
             gap: 30px; 
             padding: 20px; 
-            align-items: flex-start; 
+            align-items: flex-start !important; 
         }
 
         .pricing-card { 
@@ -50,14 +50,17 @@
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.5);
-            flex: 0 1 350px; /* Base size of 350px, but can shrink if needed */
-            height: auto; /* Lets the card grow only when content expands */
+            flex: 0 1 350px; 
+            /* THE FIX: height auto and margin-bottom auto stop the morphing */
+            height: auto !important; 
+            margin-bottom: auto !important; 
+            display: block;
         }
 
         .tier-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px; text-align: center; }
         .price { font-size: 2rem; font-weight: 600; margin-bottom: 20px; color: var(--gold); text-align: center; }
         
-        .btn { background: var(--cash-green); color: white; text-align: center; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; display: block; margin-bottom: 10px; transition: 0.3s; }
+        .btn { background: var(--cash-green); color: white; text-align: center; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; display: block; margin-bottom: 10px; }
 
         /* SCROLLING SYSTEM */
         details { margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 15px; }
