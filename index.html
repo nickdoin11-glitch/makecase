@@ -22,6 +22,7 @@
             background-image: radial-gradient(at 0% 0%, rgba(172, 193, 180, 0.2) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(244, 218, 218, 0.2) 0px, transparent 50%);
             background-attachment: fixed;
             color: var(--slate);
+            padding-bottom: 60px;
         }
 
         header { text-align: center; padding: 60px 20px; }
@@ -32,7 +33,6 @@
             max-width: 1200px; 
             margin: 0 auto; 
             display: flex;
-            flex-direction: row;
             flex-wrap: wrap;
             justify-content: center;
             gap: 30px; 
@@ -44,14 +44,17 @@
             background: rgba(255, 255, 255, 0.85); 
             backdrop-filter: blur(10px);
             border-radius: 30px; 
-            padding: 30px; 
+            padding: 25px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
             border: 1px solid rgba(255,255,255,0.5);
-            flex: 0 1 350px; 
+            flex: 0 1 360px; 
+            width: 100%;
+            max-width: 360px;
             display: flex;
             flex-direction: column;
             height: auto !important; 
-            align-self: flex-start !important; 
+            align-self: flex-start !important;
+            overflow: hidden; /* Keeps the gallery inside the card */
         }
 
         .tier-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px; text-align: center; }
@@ -63,43 +66,47 @@
         summary { font-size: 0.8rem; font-weight: 600; color: var(--gold); cursor: pointer; padding: 10px 0; display: block; text-align: center; letter-spacing: 2px; }
         summary::-webkit-details-marker { display: none; }
 
+        /* THE FIX: These properties FORCE the images to stay in one line */
         .gallery-wrapper { 
             display: flex !important; 
+            flex-direction: row !important;
+            flex-wrap: nowrap !important; /* Prevents flooding/wrapping */
             overflow-x: auto !important; 
+            overflow-y: hidden !important;
             gap: 12px; 
             padding: 15px 0;
+            width: 100%;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
         }
-        .gallery-wrapper::-webkit-scrollbar { height: 4px; }
+
+        .gallery-wrapper::-webkit-scrollbar { height: 6px; }
         .gallery-wrapper::-webkit-scrollbar-thumb { background: var(--ribbon-pink); border-radius: 10px; }
 
         .gallery-item { 
-            flex: 0 0 200px !important; 
-            min-width: 200px !important; 
+            flex: 0 0 250px !important; /* Forces each image to be exactly 250px wide */
+            width: 250px !important;
             scroll-snap-align: center;
             border-radius: 15px;
             overflow: hidden;
-            background: white;
+            background: #eee;
         }
-        .gallery-item img { width: 100%; height: 200px; object-fit: cover; display: block; }
+        .gallery-item img { width: 100%; height: 250px; object-fit: cover; display: block; }
 
         .details-content { font-size: 0.85rem; line-height: 1.8; padding: 15px 0; text-align: left; }
 
-        /* ADD-ONS SECTION */
         .addons-section { 
-            max-width: 1100px; 
+            max-width: 1000px; 
             margin: 40px auto; 
             padding: 30px; 
             background: rgba(255,255,255,0.6); 
             border-radius: 25px; 
             text-align: center;
-            border: 1px dashed var(--gold);
+            border: 2px dashed var(--ribbon-pink);
         }
-        .addon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
-        .addon-item { font-size: 0.85rem; color: var(--slate); background: white; padding: 10px; border-radius: 10px; }
+        .addon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 20px; }
+        .addon-item { font-size: 0.85rem; color: var(--slate); background: white; padding: 12px; border-radius: 12px; border: 1px solid #f0f0f0; }
 
-        /* BOTTOM SECTION */
         .bottom-section { display: flex; flex-wrap: wrap; gap: 30px; max-width: 1100px; margin: 60px auto; padding: 0 20px; align-items: flex-start; }
         .shipping-box { flex: 2; background: white; padding: 35px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); min-width: 320px; }
         .side-box { flex: 1; display: flex; flex-direction: column; gap: 20px; min-width: 300px; }
@@ -127,8 +134,11 @@
             <details>
                 <summary>Explore the Kit ▿</summary>
                 <div class="gallery-wrapper">
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=400"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1590439471364-192aa70c0b53?w=400"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=500"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1590439471364-192aa70c0b53?w=500"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=500"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=500"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1595425959632-34f2822322ce?w=500"></div>
                 </div>
                 <div class="details-content">
                     ✦ 3 Hair ties | 1 Pad & 1 Tampon<br>
@@ -145,8 +155,11 @@
             <details>
                 <summary>Explore the Kit ▿</summary>
                 <div class="gallery-wrapper">
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?w=400"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1608611305410-639097e84992?w=400"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?w=500"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1608611305410-639097e84992?w=500"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1526170315870-efcd0a73e28b?w=500"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1616150638538-ffb0679a3fc4?w=500"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500"></div>
                 </div>
                 <div class="details-content">
                     <strong>Everything in Small, plus:</strong><br>
@@ -163,8 +176,11 @@
             <details>
                 <summary>Explore the Kit ▿</summary>
                 <div class="gallery-wrapper">
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1523944339743-0fe06f079939?w=400"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=400"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1523944339743-0fe06f079939?w=500"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1596462502278-27bfac44221b?w=500"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=500"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1590439471364-192aa70c0b53?w=500"></div>
                 </div>
                 <div class="details-content">
                     <strong>The Ultimate Set:</strong><br>
@@ -178,14 +194,14 @@
 
     <div class="addons-section">
         <h3 style="font-family:'Playfair Display'; color: var(--gold); margin: 0;">✨ Custom Add-Ons</h3>
-        <p style="font-size: 0.8rem; margin-top: 5px;">Mix and match to perfect your kit!</p>
+        <p style="font-size: 0.8rem; margin-top: 5px;">Build your perfect emergency kit!</p>
         <div class="addon-grid">
             <div class="addon-item">Extra Hair Ties (3pk)</div>
             <div class="addon-item">Premium Body Wipes</div>
             <div class="addon-item">Luxury Hand Cream</div>
             <div class="addon-item">Car Refreshing Spray</div>
             <div class="addon-item">Compact Lint Roller</div>
-            <div class="addon-item">Emergency Pads/Tampons</div>
+            <div class="addon-item">Extra Pads/Tampons</div>
         </div>
     </div>
 
