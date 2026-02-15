@@ -27,22 +27,6 @@
             overflow-x: hidden;
         }
 
-        /* Background Watermark */
-        body::before {
-            content: "GLOVEBOX ESSENTIAL • ROAD TRIP READY • STAY PREPARED";
-            position: fixed;
-            top: 25%;
-            left: -5%;
-            font-family: 'Playfair Display', serif;
-            font-size: 7vw;
-            font-weight: 700;
-            color: rgba(172, 193, 180, 0.08);
-            transform: rotate(-8deg);
-            white-space: nowrap;
-            z-index: -1;
-            pointer-events: none;
-        }
-
         header { text-align: center; padding: 60px 20px; }
         h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 4rem); margin: 0; text-transform: uppercase; position: relative; display: inline-block; }
         h1::after { content: ""; position: absolute; bottom: -5px; left: 10%; width: 80%; height: 8px; background: var(--ribbon-pink); z-index: -1; border-radius: 10px; }
@@ -58,7 +42,8 @@
         li { margin-bottom: 10px; font-size: 0.9rem; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 5px; display: flex; align-items: flex-start; }
         li::before { content: "✦"; color: var(--gold); margin-right: 8px; }
 
-        .btn { background: var(--cash-green); color: white; text-align: center; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; }
+        .btn { background: var(--cash-green); color: white; text-align: center; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s; }
+        .btn:hover { opacity: 0.8; }
 
         .form-flex-container { display: flex; flex-wrap: wrap; gap: 30px; max-width: 1000px; margin: 50px auto; padding: 0 20px; }
         .shipping-section { flex: 2; background: white; padding: 35px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); min-width: 300px; }
@@ -85,9 +70,8 @@
                 <li>3 Hair ties | 1 Pad & 1 Tampon</li>
                 <li>1 Chapstick | 1 Hand sanitizer</li>
                 <li>3 Mixed bandaids | 2 Body wipes</li>
-                <li>1 Mini lint roller | 1 Tissue pack</li>
             </ul>
-            <a href="https://cash.app/$nickdoin9/15" class="btn" target="_blank">Pay via Cash App</a>
+            <a href="https://cash.app/$nickdoin9/15" class="btn" target="_blank">Pay $15</a>
         </div>
 
         <div class="pricing-card" style="border: 2px solid var(--gold);">
@@ -95,11 +79,10 @@
             <div class="price">$25</div>
             <ul>
                 <li><strong>Everything in Small, plus:</strong></li>
-                <li>1 Car spray | 1 Large lint roller</li>
+                <li>Car spray | Large lint roller</li>
                 <li>Pimple patches | Hand lotion</li>
-                <li>1 Face mask | Toothpicks</li>
             </ul>
-            <a href="https://cash.app/$nickdoin9/25" class="btn" target="_blank">Pay via Cash App</a>
+            <a href="https://cash.app/$nickdoin9/25" class="btn" target="_blank">Pay $25</a>
         </div>
 
         <div class="pricing-card">
@@ -109,48 +92,70 @@
                 <li><strong>The Ultimate Set:</strong></li>
                 <li>2 Pad & 2 Tampon | 5 Bandaids</li>
                 <li>3 Body wipes | Feminine wipes</li>
-                <li>1 Car spray | 1 Large lint roller</li>
-                <li>Pimple patches | 2 Face masks</li>
-                <li>1 Gum pack | 1 Car tissue</li>
+                <li>Car spray | Car tissue</li>
             </ul>
-            <a href="https://cash.app/$nickdoin9/35" class="btn" target="_blank">Pay via Cash App</a>
+            <a href="https://cash.app/$nickdoin9/35" class="btn" target="_blank">Pay $35</a>
+        </div>
+    </div>
+
+    <div style="max-width: 1200px; margin: 60px auto 20px; padding: 0 20px; text-align: center;">
+        <h2 style="font-family: 'Playfair Display', serif;">Complete Your Case 🎀</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+            <div style="background: white; border: 1px solid var(--ribbon-pink); padding: 15px; border-radius: 15px; width: 180px;">
+                <div style="font-size: 1.5rem;">🕶️</div>
+                <strong>Glasses Case</strong><br><small>+$2.00</small>
+            </div>
+            <div style="background: white; border: 1px solid var(--ribbon-pink); padding: 15px; border-radius: 15px; width: 180px;">
+                <div style="font-size: 1.5rem;">👁️</div>
+                <strong>Contact Kit</strong><br><small>+$2.00</small>
+            </div>
+            <div style="background: white; border: 1px solid var(--ribbon-pink); padding: 15px; border-radius: 15px; width: 180px;">
+                <div style="font-size: 1.5rem;">🪞</div>
+                <strong>Matching Mirror</strong><br><small>+$3.00</small>
+            </div>
         </div>
     </div>
 
     <div class="form-flex-container">
-<div class="form-flex-container">
-    <div class="shipping-section">
-        <h2 style="text-align:center; font-family:'Playfair Display';">Shipping Info</h2>
-        <form action="https://formspree.io/f/mykdwplv" method="POST">
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="text" name="cashtag" placeholder="Your $Cashtag" required>
-            <select name="order_choice">
-                <option value="Small Case">Small Case - $15</option>
-                <option value="Medium Case">Medium Case - $25</option>
-                <option value="Large Case">Large Case - $35</option>
-            </select>
-            <textarea name="address" rows="4" placeholder="Street, City, Zip" required></textarea>
-            <button type="submit" class="submit-btn">Save My Shipping Info</button>
-        </form>
-    </div>
+        <div class="shipping-section">
+            <h2 style="text-align:center; font-family:'Playfair Display';">Shipping Info</h2>
+            <form action="https://formspree.io/f/mykdwplv" method="POST">
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="text" name="cashtag" placeholder="Your $Cashtag" required>
+                
+                <select name="order_choice" required>
+                    <option value="" disabled selected>Select your order:</option>
+                    <option value="Small Case">Small Case - $15</option>
+                    <option value="Medium Case">Medium Case - $25</option>
+                    <option value="Large Case">Large Case - $35</option>
+                    <option value="Case + Add-on">Case + Add-on(s)</option>
+                </select>
 
-    <div style="flex: 1; display: flex; flex-direction: column; gap: 20px; min-width: 280px;">
-        
-        <div class="facebook-callout" style="margin: 0;">
-            <h3>See Inside! 🎀</h3>
-            <p>Check out our Facebook for a closer look at our bags!</p>
-            <a href="https://facebook.com/make" class="btn" style="background:#1877F2; display:block;" target="_blank">Facebook Page</a>
+                <textarea name="details" rows="2" placeholder="List any add-ons or special requests..."></textarea>
+                <textarea name="address" rows="3" placeholder="Street, City, Zip Code" required></textarea>
+                <button type="submit" class="submit-btn">Save My Shipping Info</button>
+            </form>
         </div>
 
-        <div style="background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-left: 5px solid var(--gold);">
-            <h3 style="font-family: 'Playfair Display', serif; margin-top: 0; color: var(--slate);">The "MaKe" Story</h3>
-            <p style="font-size: 0.85rem; line-height: 1.6; color: #666; font-style: italic;">
-                "I was so tired of digging through my car seats and glovebox every time I needed a hair tie or a bandaid. I realized that our cars should feel like an extension of our homes—organized, prepared, and aesthetic."
-            </p>
-            <p style="font-size: 0.85rem; line-height: 1.6; color: #666;">
-                That’s why I created the <strong>MaKe Case</strong>. It’s more than just a travel kit; it’s a lifestyle choice for the girl who is always on the go but never wants to look like it. Whether it's a road trip or just a run to the store, we make sure you stay <em>Road Trip Ready.</em>
-            </p>
-            <a href="https://facebook.com/MakeCase" style="color: var(--gold); font-size: 0.8rem; font-weight: 600; text-decoration: none;">Watch the full story here →</a>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 20px; min-width: 280px;">
+            <div class="facebook-callout" style="margin: 0;">
+                <h3>See Inside! 🎀</h3>
+                <a href="https://facebook.com/MakeCase" class="btn" style="background:#1877F2; display:block;" target="_blank">Facebook Page</a>
+            </div>
+
+            <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-left: 5px solid var(--gold);">
+                <h3 style="font-family: 'Playfair Display', serif; margin-top: 0; color: var(--slate);">The MaKe Story</h3>
+                <p style="font-size: 0.85rem; line-height: 1.6; color: #666; font-style: italic; margin-bottom: 15px;">
+                    "I was so tired of digging through my car seats and glovebox every time I needed a hair tie or a bandaid. I realized that our cars should feel like an extension of our homes—organized, prepared, and aesthetic."
+                </p>
+                <p style="font-size: 0.85rem; line-height: 1.6; color: #666;">
+                    That’s why I created the <strong>MaKe Case</strong>. It’s more than just a travel kit; it’s a lifestyle choice for the girl who is always on the go but never wants to look like it. Whether it's a road trip or just a run to the store, we make sure you stay <strong>Road Trip Ready.</strong>
+                </p>
+            </div>
         </div>
     </div>
-</div>
+
+    <footer>&copy; 2026 MaKe Case.</footer>
+
+</body>
+</html>
