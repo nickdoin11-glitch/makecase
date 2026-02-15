@@ -16,12 +16,10 @@
             --white: #ffffff;
         }
 
-        /* --- THE NEW AESTHETIC BACKGROUND --- */
         body {
             margin: 0;
             font-family: 'Montserrat', sans-serif;
             background-color: var(--cream);
-            /* Soft mesh gradient for a dreamy look */
             background-image: 
                 radial-gradient(at 0% 0%, rgba(172, 193, 180, 0.3) 0px, transparent 50%),
                 radial-gradient(at 100% 0%, rgba(244, 218, 218, 0.3) 0px, transparent 50%),
@@ -33,52 +31,33 @@
             overflow-x: hidden;
         }
 
-        /* Subtle grid overlay for texture */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-            opacity: 0.4;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        header { text-align: center; padding: 80px 20px; }
-        h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 5rem); margin: 0; text-transform: uppercase; letter-spacing: 4px; position: relative; display: inline-block; }
-        h1::after { content: ""; position: absolute; bottom: 5px; left: 0; width: 100%; height: 15px; background: var(--ribbon-pink); z-index: -1; opacity: 0.6; border-radius: 50px; }
-        .subtitle { font-style: italic; font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); margin-top: 15px; letter-spacing: 1px; }
+        header { text-align: center; padding: 60px 20px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 4rem); margin: 0; text-transform: uppercase; position: relative; display: inline-block; }
+        h1::after { content: ""; position: absolute; bottom: 5px; left: 0; width: 100%; height: 10px; background: var(--ribbon-pink); z-index: -1; opacity: 0.6; border-radius: 50px; }
+        .subtitle { font-style: italic; font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--gold); margin-top: 10px; }
 
         .container { 
             max-width: 1200px; 
             margin: 0 auto; 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 40px; 
+            gap: 30px; 
             padding: 20px; 
             align-items: start;
         }
 
-        /* --- CARDS WITH SOFT GLASS EFFECT --- */
         .pricing-card { 
             background: rgba(255, 255, 255, 0.7); 
-            backdrop-filter: blur(10px); /* Frosted glass look */
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
             border-radius: 30px; 
-            padding: 40px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.03); 
+            padding: 30px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
             display: flex; 
             flex-direction: column; 
             text-align: center;
             position: relative;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
         }
 
         .badge {
@@ -89,64 +68,75 @@
             color: white;
             padding: 7px 45px;
             transform: rotate(45deg);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            z-index: 10;
+            z-index: 5;
         }
 
-        .tier-name { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 5px; color: var(--slate); }
-        .price { font-size: 2.2rem; font-weight: 300; margin-bottom: 25px; color: var(--gold); }
+        .tier-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px; }
+        .price { font-size: 2rem; font-weight: 600; margin-bottom: 20px; color: var(--gold); }
         
-        .btn { background: var(--cash-green); color: white; text-align: center; padding: 18px; border-radius: 15px; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; transition: 0.3s; margin-bottom: 10px; display: block; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(0,214,50,0.2); }
-        .btn:hover { opacity: 0.9; box-shadow: 0 6px 20px rgba(0,214,50,0.3); }
+        .btn { background: var(--cash-green); color: white; text-align: center; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; display: block; margin-bottom: 10px; z-index: 10; position: relative; }
 
-        /* --- GALLERY & DETAILS --- */
-        details { margin-top: 20px; cursor: pointer; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 20px; }
-        summary { font-size: 0.8rem; font-weight: 600; color: var(--gold); list-style: none; text-transform: uppercase; letter-spacing: 2px; }
-        
+        /* --- THE FIXED CLICKABLE TAB --- */
+        details { margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 15px; width: 100%; }
+        summary { 
+            font-size: 0.8rem; 
+            font-weight: 600; 
+            color: var(--gold); 
+            list-style: none; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            cursor: pointer;
+            padding: 10px 0;
+            display: block; 
+            outline: none;
+            position: relative;
+            z-index: 20; /* Ensures clickability */
+        }
+        summary::-webkit-details-marker { display: none; }
+
         .gallery-wrapper { 
             display: flex; 
             overflow-x: auto; 
-            gap: 15px; 
-            padding: 20px 5px;
+            gap: 12px; 
+            padding: 15px 0;
             scroll-snap-type: x mandatory;
         }
-        .gallery-wrapper::-webkit-scrollbar { display: none; } /* Clean look */
+        .gallery-wrapper::-webkit-scrollbar { display: none; }
 
         .gallery-item { 
-            flex: 0 0 160px; 
+            flex: 0 0 140px; 
             scroll-snap-align: start;
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        .gallery-item img { width: 100%; height: 160px; object-fit: cover; display: block; }
+        .gallery-item img { width: 100%; height: 140px; object-fit: cover; display: block; }
 
         .details-content { 
             text-align: left;
-            background: rgba(255,255,255,0.4); 
-            padding: 20px; 
-            border-radius: 15px; 
-            margin-top: 15px; 
+            background: rgba(255, 255, 255, 0.5); 
+            padding: 15px; 
+            border-radius: 10px; 
+            margin-top: 10px; 
             font-size: 0.85rem; 
-            line-height: 1.8;
-            color: #555;
+            line-height: 1.6;
         }
 
-        /* --- FORM & STORY --- */
-        .form-flex-container { display: flex; flex-wrap: wrap; gap: 40px; max-width: 1100px; margin: 80px auto; padding: 0 20px; }
-        .shipping-section { flex: 2; background: rgba(255,255,255,0.6); backdrop-filter: blur(5px); padding: 45px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); min-width: 320px; border: 1px solid white; }
+        /* --- BOTTOM LAYOUT --- */
+        .form-flex-container { display: flex; flex-wrap: wrap; gap: 30px; max-width: 1100px; margin: 60px auto; padding: 0 20px; }
+        .shipping-section { flex: 2; background: rgba(255,255,255,0.8); padding: 35px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); min-width: 320px; }
+        .sidebar-column { flex: 1; display: flex; flex-direction: column; gap: 20px; min-width: 300px; }
         
-        .sidebar-column { flex: 1; display: flex; flex-direction: column; gap: 25px; min-width: 300px; }
-        .facebook-callout { background: var(--ribbon-pink); padding: 40px; border-radius: 30px; text-align: center; border: 1px solid rgba(255,255,255,0.5); }
-        .story-box { background: rgba(255,255,255,0.8); padding: 40px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border-left: 8px solid var(--sage); }
+        .facebook-callout { background: var(--ribbon-pink); padding: 30px; border-radius: 25px; text-align: center; }
+        .story-box { background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border-left: 5px solid var(--sage); }
 
-        input, textarea, select { width: 100%; padding: 15px; border: 1px solid rgba(0,0,0,0.05); border-radius: 12px; margin-bottom: 20px; font-family: inherit; background: rgba(255,255,255,0.8); }
-        .submit-btn { width: 100%; background: var(--slate); color: white; padding: 20px; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; }
+        input, textarea, select { width: 100%; padding: 12px; border: 1px solid rgba(0,0,0,0.05); border-radius: 10px; margin-bottom: 15px; font-family: inherit; }
+        .submit-btn { width: 100%; background: var(--slate); color: white; padding: 15px; border: none; border-radius: 10px; font-weight: 600; text-transform: uppercase; cursor: pointer; }
         
-        footer { text-align: center; padding: 80px 20px; opacity: 0.4; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; }
+        footer { text-align: center; padding: 60px 20px; opacity: 0.5; font-size: 0.75rem; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -216,7 +206,7 @@
 
     <div class="form-flex-container">
         <div class="shipping-section">
-            <h2 style="font-family:'Playfair Display'; margin-top:0; letter-spacing: 2px;">Shipping Details</h2>
+            <h2 style="font-family:'Playfair Display'; margin-top:0;">Shipping Info</h2>
             <form action="https://formspree.io/f/mykdwplv" method="POST">
                 <input type="text" name="name" placeholder="Full Name" required>
                 <input type="text" name="cashtag" placeholder="Your $Cashtag" required>
@@ -234,24 +224,22 @@
 
         <div class="sidebar-column">
             <div class="facebook-callout">
-                <h3 style="font-family:'Playfair Display';">Join the Community</h3>
-                <p style="font-size: 0.9rem; margin-bottom: 20px;">Tag us in your road trip photos!</p>
-                <a href="https://facebook.com/MakeCase" class="btn" style="background:#1877F2; margin-bottom:0;" target="_blank">Visit Facebook</a>
+                <h3>See Inside! 🎀</h3>
+                <a href="https://facebook.com/MakeCase" class="btn" style="background:#1877F2; margin-bottom:0;" target="_blank">Facebook Page</a>
             </div>
-
             <div class="story-box">
-                <h3 style="font-family: 'Playfair Display', serif; margin-top: 0;">The Vision</h3>
-                <p style="font-size: 0.9rem; font-style: italic; color: #555; line-height: 2;">
-                    "I was so tired of digging through my car seats... I realized our cars should feel like an extension of our homes—organized, prepared, and aesthetic."
+                <h3 style="font-family: 'Playfair Display', serif; margin-top: 0;">Our Vision</h3>
+                <p style="font-size: 0.85rem; line-height: 1.6; color: #666; font-style: italic;">
+                    "I was so tired of digging through my car seats... our cars should feel like an extension of our homes."
                 </p>
-                <p style="font-size: 0.9rem; color: #555; line-height: 2; margin-top: 15px;">
+                <p style="font-size: 0.85rem; line-height: 1.6; color: #666;">
                     Stay <strong>Road Trip Ready.</strong>
                 </p>
             </div>
         </div>
     </div>
 
-    <footer>Designed for the Organized & Aesthetic | &copy; 2026 MaKe Case</footer>
+    <footer>&copy; 2026 MaKe Case. | Prepared & Aesthetic</footer>
 
 </body>
 </html>
