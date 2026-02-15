@@ -85,8 +85,21 @@
         .gallery-item img { width: 100%; height: 200px; object-fit: cover; display: block; }
 
         .details-content { font-size: 0.85rem; line-height: 1.8; padding: 15px 0; text-align: left; }
-        .details-content strong { color: var(--gold); display: block; margin-bottom: 5px; }
 
+        /* ADD-ONS SECTION */
+        .addons-section { 
+            max-width: 1100px; 
+            margin: 40px auto; 
+            padding: 30px; 
+            background: rgba(255,255,255,0.6); 
+            border-radius: 25px; 
+            text-align: center;
+            border: 1px dashed var(--gold);
+        }
+        .addon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .addon-item { font-size: 0.85rem; color: var(--slate); background: white; padding: 10px; border-radius: 10px; }
+
+        /* BOTTOM SECTION */
         .bottom-section { display: flex; flex-wrap: wrap; gap: 30px; max-width: 1100px; margin: 60px auto; padding: 0 20px; align-items: flex-start; }
         .shipping-box { flex: 2; background: white; padding: 35px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); min-width: 320px; }
         .side-box { flex: 1; display: flex; flex-direction: column; gap: 20px; min-width: 300px; }
@@ -118,12 +131,9 @@
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1590439471364-192aa70c0b53?w=400"></div>
                 </div>
                 <div class="details-content">
-                    ✦ 3 Hair ties<br>
-                    ✦ 1 Pad & 1 Tampon<br>
-                    ✦ 1 Chapstick<br>
-                    ✦ 1 Hand sanitizer<br>
-                    ✦ 3 Mixed bandaids<br>
-                    ✦ 2 Body wipes
+                    ✦ 3 Hair ties | 1 Pad & 1 Tampon<br>
+                    ✦ 1 Chapstick | 1 Hand sanitizer<br>
+                    ✦ 3 Mixed bandaids | 2 Body wipes
                 </div>
             </details>
         </div>
@@ -139,11 +149,9 @@
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1608611305410-639097e84992?w=400"></div>
                 </div>
                 <div class="details-content">
-                    <strong>Everything in Small, plus:</strong>
-                    ✦ 1 Car spray<br>
-                    ✦ 1 Large lint roller<br>
-                    ✦ Pimple patches<br>
-                    ✦ Hand lotion
+                    <strong>Everything in Small, plus:</strong><br>
+                    ✦ 1 Car spray | 1 Large lint roller<br>
+                    ✦ Pimple patches | Hand lotion
                 </div>
             </details>
         </div>
@@ -159,15 +167,25 @@
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=400"></div>
                 </div>
                 <div class="details-content">
-                    <strong>The Ultimate Set:</strong>
-                    ✦ 2 Pad & 2 Tampon<br>
-                    ✦ 5 Mixed bandaids<br>
-                    ✦ 3 Body wipes<br>
-                    ✦ Feminine wipes<br>
-                    ✦ 1 Car spray<br>
-                    ✦ 1 Car tissue
+                    <strong>The Ultimate Set:</strong><br>
+                    ✦ 2 Pad & 2 Tampon | 5 Mixed bandaids<br>
+                    ✦ 3 Body wipes | Feminine wipes<br>
+                    ✦ 1 Car spray | 1 Car tissue
                 </div>
             </details>
+        </div>
+    </div>
+
+    <div class="addons-section">
+        <h3 style="font-family:'Playfair Display'; color: var(--gold); margin: 0;">✨ Custom Add-Ons</h3>
+        <p style="font-size: 0.8rem; margin-top: 5px;">Mix and match to perfect your kit!</p>
+        <div class="addon-grid">
+            <div class="addon-item">Extra Hair Ties (3pk)</div>
+            <div class="addon-item">Premium Body Wipes</div>
+            <div class="addon-item">Luxury Hand Cream</div>
+            <div class="addon-item">Car Refreshing Spray</div>
+            <div class="addon-item">Compact Lint Roller</div>
+            <div class="addon-item">Emergency Pads/Tampons</div>
         </div>
     </div>
 
@@ -182,6 +200,7 @@
                     <option value="Small">Small Case ($15)</option>
                     <option value="Medium">Medium Case ($25)</option>
                     <option value="Large">Large Case ($35)</option>
+                    <option value="Custom">Custom Order / Add-ons</option>
                 </select>
                 <textarea name="address" rows="3" placeholder="Shipping Address" required></textarea>
                 <button type="submit" class="submit-btn">Save Shipping Details</button>
@@ -196,7 +215,7 @@
             <div class="story-card">
                 <h3 style="font-family: 'Playfair Display', serif; margin-top: 0;">Our Vision</h3>
                 <p style="font-size: 0.85rem; line-height: 1.6; color: #666; font-style: italic;">
-                    "Our cars should feel like an extension of our homes—organized, prepared, and aesthetic."
+                    "I was so tired of digging through my car seats and center console every time I needed something. I realized that our cars should feel like an extension of our homes—organized, prepared, and aesthetic. MaKe Case was born out of that need to stay Road Trip Ready, no matter how short the drive."
                 </p>
             </div>
         </div>
