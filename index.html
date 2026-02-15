@@ -22,57 +22,58 @@
             background-image: radial-gradient(at 0% 0%, rgba(172, 193, 180, 0.2) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(244, 218, 218, 0.2) 0px, transparent 50%);
             background-attachment: fixed;
             color: var(--slate);
-            padding-bottom: 80px;
         }
 
         header { text-align: center; padding: 60px 20px; }
         h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 4rem); margin: 0; text-transform: uppercase; position: relative; display: inline-block; }
         h1::after { content: ""; position: absolute; bottom: 5px; left: 0; width: 100%; height: 10px; background: var(--ribbon-pink); z-index: -1; opacity: 0.6; border-radius: 50px; }
 
-        /* THE FIX: align-items: flex-start ensures cards don't stretch to match heights */
+        /* THE "FLOATING COLUMN" SYSTEM */
         .container { 
-            max-width: 1240px; 
+            max-width: 1200px; 
             margin: 0 auto; 
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: row; /* Desktop: side by side */
+            flex-wrap: wrap; /* Mobile: stack */
             justify-content: center;
             gap: 30px; 
             padding: 20px; 
+            /* This is the magic line. 'flex-start' means they NEVER stretch to match height */
             align-items: flex-start !important; 
         }
 
         .pricing-card { 
-            background: rgba(255, 255, 255, 0.8); 
+            background: rgba(255, 255, 255, 0.85); 
             backdrop-filter: blur(10px);
             border-radius: 30px; 
             padding: 30px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
-            position: relative;
-            overflow: hidden;
             border: 1px solid rgba(255,255,255,0.5);
+            /* Force independent sizing */
             flex: 0 1 350px; 
-            /* THE FIX: height auto and margin-bottom auto stop the morphing */
+            display: flex;
+            flex-direction: column;
+            /* Prevents the card from ever 'reaching' for a height */
             height: auto !important; 
-            margin-bottom: auto !important; 
-            display: block;
+            min-height: 100px; 
+            align-self: flex-start !important; 
         }
 
         .tier-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px; text-align: center; }
         .price { font-size: 2rem; font-weight: 600; margin-bottom: 20px; color: var(--gold); text-align: center; }
         
-        .btn { background: var(--cash-green); color: white; text-align: center; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; display: block; margin-bottom: 10px; }
+        .btn { background: var(--cash-green); color: white; text-align: center; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; display: block; margin-bottom: 15px; }
 
-        /* SCROLLING SYSTEM */
-        details { margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 15px; }
-        summary { font-size: 0.8rem; font-weight: 600; color: var(--gold); cursor: pointer; padding: 10px 0; display: block; outline: none; text-align: center; letter-spacing: 2px; }
+        /* SCROLLING GALLERY */
+        details { width: 100%; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 15px; }
+        summary { font-size: 0.8rem; font-weight: 600; color: var(--gold); cursor: pointer; padding: 10px 0; display: block; text-align: center; letter-spacing: 2px; }
         summary::-webkit-details-marker { display: none; }
 
         .gallery-wrapper { 
             display: flex !important; 
-            flex-wrap: nowrap !important; 
             overflow-x: auto !important; 
-            gap: 15px; 
-            padding: 20px 0;
+            gap: 12px; 
+            padding: 15px 0;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
         }
@@ -80,24 +81,21 @@
         .gallery-wrapper::-webkit-scrollbar-thumb { background: var(--ribbon-pink); border-radius: 10px; }
 
         .gallery-item { 
-            flex: 0 0 220px !important; 
-            min-width: 220px !important; 
+            flex: 0 0 200px !important; 
+            min-width: 200px !important; 
             scroll-snap-align: center;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            background: white;
         }
-        .gallery-item img { width: 100%; height: 220px; object-fit: cover; display: block; }
+        .gallery-item img { width: 100%; height: 200px; object-fit: cover; display: block; }
 
-        .scroll-hint { font-size: 0.6rem; color: var(--gold); text-align: center; text-transform: uppercase; margin-bottom: 15px; opacity: 0.7; }
+        .details-content { font-size: 0.85rem; line-height: 1.6; padding: 15px 0; text-align: left; }
 
-        .details-content { text-align: left; background: rgba(255,255,255,0.5); padding: 15px; border-radius: 12px; font-size: 0.85rem; line-height: 1.6; }
-
-        /* BOTTOM SECTIONS */
+        /* BOTTOM SECTION */
         .bottom-section { display: flex; flex-wrap: wrap; gap: 30px; max-width: 1100px; margin: 60px auto; padding: 0 20px; align-items: flex-start; }
         .shipping-box { flex: 2; background: white; padding: 35px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); min-width: 320px; }
         .side-box { flex: 1; display: flex; flex-direction: column; gap: 20px; min-width: 300px; }
-        
         .fb-card { background: var(--ribbon-pink); padding: 30px; border-radius: 25px; text-align: center; }
         .story-card { background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-left: 6px solid var(--sage); }
 
@@ -124,13 +122,10 @@
                 <div class="gallery-wrapper">
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=400"></div>
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1590439471364-192aa70c0b53?w=400"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400"></div>
                 </div>
-                <p class="scroll-hint">← Swipe to see more →</p>
                 <div class="details-content">
                     ✦ 3 Hair ties | 1 Pad & 1 Tampon<br>
-                    ✦ 1 Chapstick | 1 Hand sanitizer<br>
-                    ✦ 3 Mixed bandaids | 2 Body wipes
+                    ✦ 1 Chapstick | 1 Hand sanitizer
                 </div>
             </details>
         </div>
@@ -144,13 +139,10 @@
                 <div class="gallery-wrapper">
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?w=400"></div>
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1608611305410-639097e84992?w=400"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400"></div>
                 </div>
-                <p class="scroll-hint">← Swipe to see more →</p>
                 <div class="details-content">
                     <strong>Includes Small kit PLUS:</strong><br>
-                    ✦ 1 Car spray | 1 Large lint roller<br>
-                    ✦ Pimple patches | Hand lotion
+                    ✦ 1 Car spray | 1 Lint roller
                 </div>
             </details>
         </div>
@@ -164,14 +156,11 @@
                 <div class="gallery-wrapper">
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1523944339743-0fe06f079939?w=400"></div>
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=400"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1596462502278-27bfac44221b?w=400"></div>
                 </div>
-                <p class="scroll-hint">← Swipe to see more →</p>
                 <div class="details-content">
                     <strong>The Ultimate Set:</strong><br>
                     ✦ 2 Pad & 2 Tampon | 5 Bandaids<br>
-                    ✦ 3 Body wipes | Feminine wipes<br>
-                    ✦ 1 Car spray | 1 Car tissue
+                    ✦ 3 Body wipes | 1 Car tissue
                 </div>
             </details>
         </div>
@@ -203,9 +192,6 @@
                 <h3 style="font-family: 'Playfair Display', serif; margin-top: 0;">Our Story</h3>
                 <p style="font-size: 0.85rem; line-height: 1.6; color: #666; font-style: italic;">
                     "I realized that our cars should feel like an extension of our homes—organized, prepared, and aesthetic."
-                </p>
-                <p style="font-size: 0.85rem; line-height: 1.6; color: #666;">
-                    Stay <strong>Road Trip Ready.</strong>
                 </p>
             </div>
         </div>
