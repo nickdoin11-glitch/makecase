@@ -79,7 +79,7 @@
         
         .btn { background: var(--cash-green); color: white; text-align: center; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; display: block; margin-bottom: 10px; z-index: 10; position: relative; }
 
-        /* --- THE FIXED CLICKABLE TAB --- */
+        /* --- FIXED SCROLLING GALLERY --- */
         details { margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 15px; width: 100%; }
         summary { 
             font-size: 0.8rem; 
@@ -93,7 +93,7 @@
             display: block; 
             outline: none;
             position: relative;
-            z-index: 20; /* Ensures clickability */
+            z-index: 20;
         }
         summary::-webkit-details-marker { display: none; }
 
@@ -101,26 +101,39 @@
             display: flex; 
             overflow-x: auto; 
             gap: 12px; 
-            padding: 15px 0;
+            padding: 15px 5px;
             scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch; /* Smooth mobile scroll */
         }
+        
+        /* Hidden scrollbar but still scrolls */
         .gallery-wrapper::-webkit-scrollbar { display: none; }
+        .gallery-wrapper { -ms-overflow-style: none; scrollbar-width: none; }
 
         .gallery-item { 
-            flex: 0 0 140px; 
-            scroll-snap-align: start;
-            border-radius: 12px;
+            flex: 0 0 220px; /* Forces images to be wide enough to scroll */
+            scroll-snap-align: center;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.08);
+            background: white;
         }
-        .gallery-item img { width: 100%; height: 140px; object-fit: cover; display: block; }
+        .gallery-item img { width: 100%; height: 220px; object-fit: cover; display: block; }
+
+        .scroll-hint {
+            font-size: 0.6rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 5px 0 15px 0;
+            opacity: 0.8;
+        }
 
         .details-content { 
             text-align: left;
             background: rgba(255, 255, 255, 0.5); 
             padding: 15px; 
             border-radius: 10px; 
-            margin-top: 10px; 
             font-size: 0.85rem; 
             line-height: 1.6;
         }
@@ -156,7 +169,10 @@
                 <div class="gallery-wrapper">
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=400"></div>
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1590439471364-192aa70c0b53?w=400"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1616150638538-ffb0679a3fc4?w=400"></div>
                 </div>
+                <div class="scroll-hint">Swipe to see more →</div>
                 <div class="details-content">
                     ✦ 3 Hair ties | 1 Pad & 1 Tampon<br>
                     ✦ 1 Chapstick | 1 Hand sanitizer<br>
@@ -175,7 +191,10 @@
                 <div class="gallery-wrapper">
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?w=400"></div>
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1608611305410-639097e84992?w=400"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1526170315870-efcd0a73e28b?w=400"></div>
                 </div>
+                <div class="scroll-hint">Swipe to see more →</div>
                 <div class="details-content">
                     <strong>Everything in Small, plus:</strong><br>
                     ✦ 1 Car spray | 1 Large lint roller<br>
@@ -193,7 +212,10 @@
                 <div class="gallery-wrapper">
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1523944339743-0fe06f079939?w=400"></div>
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=400"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1596462502278-27bfac44221b?w=400"></div>
                 </div>
+                <div class="scroll-hint">Swipe to see more →</div>
                 <div class="details-content">
                     <strong>The Ultimate Set:</strong><br>
                     ✦ 2 Pad & 2 Tampon | 5 Bandaids<br>
