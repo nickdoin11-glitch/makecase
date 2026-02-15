@@ -16,43 +16,137 @@
             --white: #ffffff;
         }
 
+        /* --- THE NEW AESTHETIC BACKGROUND --- */
         body {
             margin: 0;
             font-family: 'Montserrat', sans-serif;
             background-color: var(--cream);
-            background-image: linear-gradient(90deg, rgba(172, 193, 180, 0.05) 1px, transparent 1px);
-            background-size: 40px 100%;
+            /* Soft mesh gradient for a dreamy look */
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(172, 193, 180, 0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(244, 218, 218, 0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(172, 193, 180, 0.2) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(197, 164, 126, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
             color: var(--slate);
             padding-bottom: 80px;
             overflow-x: hidden;
         }
 
-        header { text-align: center; padding: 60px 20px; }
-        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 4rem); margin: 0; text-transform: uppercase; position: relative; display: inline-block; }
-        h1::after { content: ""; position: absolute; bottom: -5px; left: 10%; width: 80%; height: 8px; background: var(--ribbon-pink); z-index: -1; border-radius: 10px; }
-        .subtitle { font-style: italic; font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--gold); margin-top: 10px; }
+        /* Subtle grid overlay for texture */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            opacity: 0.4;
+            z-index: -1;
+            pointer-events: none;
+        }
 
-        .container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; padding: 20px; }
+        header { text-align: center; padding: 80px 20px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 5rem); margin: 0; text-transform: uppercase; letter-spacing: 4px; position: relative; display: inline-block; }
+        h1::after { content: ""; position: absolute; bottom: 5px; left: 0; width: 100%; height: 15px; background: var(--ribbon-pink); z-index: -1; opacity: 0.6; border-radius: 50px; }
+        .subtitle { font-style: italic; font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); margin-top: 15px; letter-spacing: 1px; }
 
-        .pricing-card { background: rgba(255, 255, 255, 0.95); border-radius: 20px; padding: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
-        .tier-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px; }
-        .price { font-size: 2rem; font-weight: 600; margin-bottom: 20px; }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 40px; 
+            padding: 20px; 
+            align-items: start;
+        }
+
+        /* --- CARDS WITH SOFT GLASS EFFECT --- */
+        .pricing-card { 
+            background: rgba(255, 255, 255, 0.7); 
+            backdrop-filter: blur(10px); /* Frosted glass look */
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 30px; 
+            padding: 40px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03); 
+            display: flex; 
+            flex-direction: column; 
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+        }
+
+        .badge {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: var(--gold);
+            color: white;
+            padding: 7px 45px;
+            transform: rotate(45deg);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 10;
+        }
+
+        .tier-name { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 5px; color: var(--slate); }
+        .price { font-size: 2.2rem; font-weight: 300; margin-bottom: 25px; color: var(--gold); }
         
-        ul { list-style: none; padding: 0; margin: 0 0 25px 0; flex-grow: 1; }
-        li { margin-bottom: 10px; font-size: 0.9rem; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 5px; display: flex; align-items: flex-start; }
-        li::before { content: "✦"; color: var(--gold); margin-right: 8px; }
+        .btn { background: var(--cash-green); color: white; text-align: center; padding: 18px; border-radius: 15px; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; transition: 0.3s; margin-bottom: 10px; display: block; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(0,214,50,0.2); }
+        .btn:hover { opacity: 0.9; box-shadow: 0 6px 20px rgba(0,214,50,0.3); }
 
-        .btn { background: var(--cash-green); color: white; text-align: center; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s; }
-        .btn:hover { opacity: 0.8; }
+        /* --- GALLERY & DETAILS --- */
+        details { margin-top: 20px; cursor: pointer; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 20px; }
+        summary { font-size: 0.8rem; font-weight: 600; color: var(--gold); list-style: none; text-transform: uppercase; letter-spacing: 2px; }
+        
+        .gallery-wrapper { 
+            display: flex; 
+            overflow-x: auto; 
+            gap: 15px; 
+            padding: 20px 5px;
+            scroll-snap-type: x mandatory;
+        }
+        .gallery-wrapper::-webkit-scrollbar { display: none; } /* Clean look */
 
-        .form-flex-container { display: flex; flex-wrap: wrap; gap: 30px; max-width: 1000px; margin: 50px auto; padding: 0 20px; }
-        .shipping-section { flex: 2; background: white; padding: 35px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); min-width: 300px; }
-        .facebook-callout { flex: 1; background: var(--ribbon-pink); padding: 30px; border-radius: 20px; text-align: center; min-width: 250px; }
+        .gallery-item { 
+            flex: 0 0 160px; 
+            scroll-snap-align: start;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .gallery-item img { width: 100%; height: 160px; object-fit: cover; display: block; }
+
+        .details-content { 
+            text-align: left;
+            background: rgba(255,255,255,0.4); 
+            padding: 20px; 
+            border-radius: 15px; 
+            margin-top: 15px; 
+            font-size: 0.85rem; 
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* --- FORM & STORY --- */
+        .form-flex-container { display: flex; flex-wrap: wrap; gap: 40px; max-width: 1100px; margin: 80px auto; padding: 0 20px; }
+        .shipping-section { flex: 2; background: rgba(255,255,255,0.6); backdrop-filter: blur(5px); padding: 45px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); min-width: 320px; border: 1px solid white; }
         
-        input, textarea, select { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 8px; margin-bottom: 15px; font-family: inherit; box-sizing: border-box; }
-        .submit-btn { width: 100%; background: var(--slate); color: white; padding: 15px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; text-transform: uppercase; }
+        .sidebar-column { flex: 1; display: flex; flex-direction: column; gap: 25px; min-width: 300px; }
+        .facebook-callout { background: var(--ribbon-pink); padding: 40px; border-radius: 30px; text-align: center; border: 1px solid rgba(255,255,255,0.5); }
+        .story-box { background: rgba(255,255,255,0.8); padding: 40px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border-left: 8px solid var(--sage); }
+
+        input, textarea, select { width: 100%; padding: 15px; border: 1px solid rgba(0,0,0,0.05); border-radius: 12px; margin-bottom: 20px; font-family: inherit; background: rgba(255,255,255,0.8); }
+        .submit-btn { width: 100%; background: var(--slate); color: white; padding: 20px; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; }
         
-        footer { text-align: center; padding: 40px; opacity: 0.5; font-size: 0.8rem; }
+        footer { text-align: center; padding: 80px 20px; opacity: 0.4; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -66,96 +160,98 @@
         <div class="pricing-card">
             <div class="tier-name">Small Case</div>
             <div class="price">$15</div>
-            <ul>
-                <li>3 Hair ties | 1 Pad & 1 Tampon</li>
-                <li>1 Chapstick | 1 Hand sanitizer</li>
-                <li>3 Mixed bandaids | 2 Body wipes</li>
-            </ul>
             <a href="https://cash.app/$nickdoin9/15" class="btn" target="_blank">Pay $15</a>
+            <details>
+                <summary>Explore the Kit ▿</summary>
+                <div class="gallery-wrapper">
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=400"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1590439471364-192aa70c0b53?w=400"></div>
+                </div>
+                <div class="details-content">
+                    ✦ 3 Hair ties | 1 Pad & 1 Tampon<br>
+                    ✦ 1 Chapstick | 1 Hand sanitizer<br>
+                    ✦ 3 Mixed bandaids | 2 Body wipes
+                </div>
+            </details>
         </div>
 
-        <div class="pricing-card" style="border: 2px solid var(--gold);">
+        <div class="pricing-card" style="border: 1px solid var(--gold);">
+            <div class="badge">Must Have</div>
             <div class="tier-name">Medium Case</div>
             <div class="price">$25</div>
-            <ul>
-                <li><strong>Everything in Small, plus:</strong></li>
-                <li>Car spray | Large lint roller</li>
-                <li>Pimple patches | Hand lotion</li>
-            </ul>
             <a href="https://cash.app/$nickdoin9/25" class="btn" target="_blank">Pay $25</a>
+            <details>
+                <summary>Explore the Kit ▿</summary>
+                <div class="gallery-wrapper">
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?w=400"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1608611305410-639097e84992?w=400"></div>
+                </div>
+                <div class="details-content">
+                    <strong>Everything in Small, plus:</strong><br>
+                    ✦ 1 Car spray | 1 Large lint roller<br>
+                    ✦ Pimple patches | Hand lotion
+                </div>
+            </details>
         </div>
 
         <div class="pricing-card">
             <div class="tier-name">Large Case</div>
             <div class="price">$35</div>
-            <ul>
-                <li><strong>The Ultimate Set:</strong></li>
-                <li>2 Pad & 2 Tampon | 5 Bandaids</li>
-                <li>3 Body wipes | Feminine wipes</li>
-                <li>Car spray | Car tissue</li>
-            </ul>
             <a href="https://cash.app/$nickdoin9/35" class="btn" target="_blank">Pay $35</a>
-        </div>
-    </div>
-
-    <div style="max-width: 1200px; margin: 60px auto 20px; padding: 0 20px; text-align: center;">
-        <h2 style="font-family: 'Playfair Display', serif;">Complete Your Case 🎀</h2>
-        <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
-            <div style="background: white; border: 1px solid var(--ribbon-pink); padding: 15px; border-radius: 15px; width: 180px;">
-                <div style="font-size: 1.5rem;">🕶️</div>
-                <strong>Glasses Case</strong><br><small>+$2.00</small>
-            </div>
-            <div style="background: white; border: 1px solid var(--ribbon-pink); padding: 15px; border-radius: 15px; width: 180px;">
-                <div style="font-size: 1.5rem;">👁️</div>
-                <strong>Contact Kit</strong><br><small>+$2.00</small>
-            </div>
-            <div style="background: white; border: 1px solid var(--ribbon-pink); padding: 15px; border-radius: 15px; width: 180px;">
-                <div style="font-size: 1.5rem;">🪞</div>
-                <strong>Matching Mirror</strong><br><small>+$3.00</small>
-            </div>
+            <details>
+                <summary>Explore the Kit ▿</summary>
+                <div class="gallery-wrapper">
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1523944339743-0fe06f079939?w=400"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=400"></div>
+                </div>
+                <div class="details-content">
+                    <strong>The Ultimate Set:</strong><br>
+                    ✦ 2 Pad & 2 Tampon | 5 Bandaids<br>
+                    ✦ 3 Body wipes | Feminine wipes<br>
+                    ✦ 1 Car spray | 1 Car tissue
+                </div>
+            </details>
         </div>
     </div>
 
     <div class="form-flex-container">
         <div class="shipping-section">
-            <h2 style="text-align:center; font-family:'Playfair Display';">Shipping Info</h2>
+            <h2 style="font-family:'Playfair Display'; margin-top:0; letter-spacing: 2px;">Shipping Details</h2>
             <form action="https://formspree.io/f/mykdwplv" method="POST">
                 <input type="text" name="name" placeholder="Full Name" required>
                 <input type="text" name="cashtag" placeholder="Your $Cashtag" required>
-                
                 <select name="order_choice" required>
-                    <option value="" disabled selected>Select your order:</option>
-                    <option value="Small Case">Small Case - $15</option>
-                    <option value="Medium Case">Medium Case - $25</option>
-                    <option value="Large Case">Large Case - $35</option>
-                    <option value="Case + Add-on">Case + Add-on(s)</option>
+                    <option value="" disabled selected>Select Case Size</option>
+                    <option value="Small">Small Case ($15)</option>
+                    <option value="Medium">Medium Case ($25)</option>
+                    <option value="Large">Large Case ($35)</option>
+                    <option value="Custom">Case + Add-ons</option>
                 </select>
-
-                <textarea name="details" rows="2" placeholder="List any add-ons or special requests..."></textarea>
-                <textarea name="address" rows="3" placeholder="Street, City, Zip Code" required></textarea>
-                <button type="submit" class="submit-btn">Save My Shipping Info</button>
+                <textarea name="address" rows="3" placeholder="Shipping Address" required></textarea>
+                <button type="submit" class="submit-btn">Complete Order Info</button>
             </form>
         </div>
 
-        <div style="flex: 1; display: flex; flex-direction: column; gap: 20px; min-width: 280px;">
-            <div class="facebook-callout" style="margin: 0;">
-                <h3>See Inside! 🎀</h3>
-                <a href="https://facebook.com/MakeCase" class="btn" style="background:#1877F2; display:block;" target="_blank">Facebook Page</a>
+        <div class="sidebar-column">
+            <div class="facebook-callout">
+                <h3 style="font-family:'Playfair Display';">Join the Community</h3>
+                <p style="font-size: 0.9rem; margin-bottom: 20px;">Tag us in your road trip photos!</p>
+                <a href="https://facebook.com/MakeCase" class="btn" style="background:#1877F2; margin-bottom:0;" target="_blank">Visit Facebook</a>
             </div>
 
-            <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-left: 5px solid var(--gold);">
-                <h3 style="font-family: 'Playfair Display', serif; margin-top: 0; color: var(--slate);">The MaKe Story</h3>
-                <p style="font-size: 0.85rem; line-height: 1.6; color: #666; font-style: italic; margin-bottom: 15px;">
-                    "I was so tired of digging through my car seats and glovebox every time I needed a hair tie or a bandaid. I realized that our cars should feel like an extension of our homes—organized, prepared, and aesthetic."
+            <div class="story-box">
+                <h3 style="font-family: 'Playfair Display', serif; margin-top: 0;">The Vision</h3>
+                <p style="font-size: 0.9rem; font-style: italic; color: #555; line-height: 2;">
+                    "I was so tired of digging through my car seats... I realized our cars should feel like an extension of our homes—organized, prepared, and aesthetic."
                 </p>
-                <p style="font-size: 0.85rem; line-height: 1.6; color: #666;">
-                    That’s why I created the <strong>MaKe Case</strong>. It’s more than just a travel kit; it’s a lifestyle choice for the girl who is always on the go but never wants to look like it. Whether it's a road trip or just a run to the store, we make sure you stay <strong>Road Trip Ready.</strong>
+                <p style="font-size: 0.9rem; color: #555; line-height: 2; margin-top: 15px;">
+                    Stay <strong>Road Trip Ready.</strong>
                 </p>
             </div>
         </div>
     </div>
 
-    <footer>&copy; 2026 MaKe Case.</footer>
+    <footer>Designed for the Organized & Aesthetic | &copy; 2026 MaKe Case</footer>
 
 </body>
 </html>
