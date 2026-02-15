@@ -29,13 +29,16 @@
         h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 4rem); margin: 0; text-transform: uppercase; position: relative; display: inline-block; }
         h1::after { content: ""; position: absolute; bottom: 5px; left: 0; width: 100%; height: 10px; background: var(--ribbon-pink); z-index: -1; opacity: 0.6; border-radius: 50px; }
 
+        /* FIXED: Using Flex with flex-start prevents the cards from stretching each other */
         .container { 
-            max-width: 1200px; 
+            max-width: 1240px; 
             margin: 0 auto; 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 30px; 
             padding: 20px; 
+            align-items: flex-start; 
         }
 
         .pricing-card { 
@@ -47,15 +50,16 @@
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.5);
+            flex: 0 1 350px; /* Base size of 350px, but can shrink if needed */
+            height: auto; /* Lets the card grow only when content expands */
         }
 
         .tier-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px; text-align: center; }
         .price { font-size: 2rem; font-weight: 600; margin-bottom: 20px; color: var(--gold); text-align: center; }
         
         .btn { background: var(--cash-green); color: white; text-align: center; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; display: block; margin-bottom: 10px; transition: 0.3s; }
-        .btn:hover { transform: translateY(-2px); opacity: 0.9; }
 
-        /* --- THE SWEEP-CHECKED SCROLLING SYSTEM --- */
+        /* SCROLLING SYSTEM */
         details { margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 15px; }
         summary { font-size: 0.8rem; font-weight: 600; color: var(--gold); cursor: pointer; padding: 10px 0; display: block; outline: none; text-align: center; letter-spacing: 2px; }
         summary::-webkit-details-marker { display: none; }
@@ -69,13 +73,12 @@
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
         }
-        /* Custom scrollbar to show it's scrollable */
-        .gallery-wrapper::-webkit-scrollbar { height: 4px; display: block; }
+        .gallery-wrapper::-webkit-scrollbar { height: 4px; }
         .gallery-wrapper::-webkit-scrollbar-thumb { background: var(--ribbon-pink); border-radius: 10px; }
 
         .gallery-item { 
-            flex: 0 0 220px !important; /* THE FIX: Prevents squishing */
-            min-width: 220px !important;  /* THE FIX: Forced width */
+            flex: 0 0 220px !important; 
+            min-width: 220px !important; 
             scroll-snap-align: center;
             border-radius: 15px;
             overflow: hidden;
@@ -87,8 +90,8 @@
 
         .details-content { text-align: left; background: rgba(255,255,255,0.5); padding: 15px; border-radius: 12px; font-size: 0.85rem; line-height: 1.6; }
 
-        /* --- BOTTOM LAYOUT FIXED --- */
-        .bottom-section { display: flex; flex-wrap: wrap; gap: 30px; max-width: 1100px; margin: 60px auto; padding: 0 20px; }
+        /* BOTTOM SECTIONS */
+        .bottom-section { display: flex; flex-wrap: wrap; gap: 30px; max-width: 1100px; margin: 60px auto; padding: 0 20px; align-items: flex-start; }
         .shipping-box { flex: 2; background: white; padding: 35px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); min-width: 320px; }
         .side-box { flex: 1; display: flex; flex-direction: column; gap: 20px; min-width: 300px; }
         
@@ -129,7 +132,7 @@
             </details>
         </div>
 
-        <div class="pricing-card" style="border: 1px solid var(--gold);">
+        <div class="pricing-card" style="border: 2px solid var(--gold);">
             <div class="tier-name">Medium Case</div>
             <div class="price">$25</div>
             <a href="https://cash.app/$nickdoin9/25" class="btn" target="_blank">Pay $25</a>
