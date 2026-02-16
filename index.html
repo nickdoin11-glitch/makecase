@@ -29,6 +29,13 @@
         h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 4rem); margin: 0; text-transform: uppercase; position: relative; display: inline-block; }
         h1::after { content: ""; position: absolute; bottom: 5px; left: 0; width: 100%; height: 10px; background: var(--ribbon-pink); z-index: -1; opacity: 0.6; border-radius: 50px; }
 
+        /* Focus styles for accessibility */
+        a:focus-visible, button:focus-visible, input:focus-visible,
+        textarea:focus-visible, select:focus-visible, summary:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
+
         .container { 
             max-width: 1200px; 
             margin: 0 auto; 
@@ -63,8 +70,13 @@
         .btn { background: var(--cash-green); color: white; text-align: center; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; display: block; margin-bottom: 15px; }
 
         details { width: 100%; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 15px; }
-        summary { font-size: 0.8rem; font-weight: 600; color: var(--gold); cursor: pointer; padding: 10px 0; display: block; text-align: center; letter-spacing: 2px; }
+        summary { 
+            font-size: 0.8rem; font-weight: 600; color: var(--gold); cursor: pointer; padding: 10px 0; display: block; text-align: center; letter-spacing: 2px; 
+            list-style: none;
+        }
         summary::-webkit-details-marker { display: none; }
+        summary::before { content: "▿ "; }
+        details[open] summary::before { content: "▵ "; }
 
         /* THE FIX: These properties FORCE the images to stay in one line */
         .gallery-wrapper { 
@@ -108,15 +120,17 @@
         .addon-item { font-size: 0.85rem; color: var(--slate); background: white; padding: 12px; border-radius: 12px; border: 1px solid #f0f0f0; }
 
         .bottom-section { display: flex; flex-wrap: wrap; gap: 30px; max-width: 1100px; margin: 60px auto; padding: 0 20px; align-items: flex-start; }
-        .shipping-box { flex: 2; background: white; padding: 35px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); min-width: 320px; }
-        .side-box { flex: 1; display: flex; flex-direction: column; gap: 20px; min-width: 300px; }
+        .shipping-box { flex: 2; background: white; padding: 35px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); min-width: min(100%, 320px); }
+        .side-box { flex: 1; display: flex; flex-direction: column; gap: 20px; min-width: min(100%, 300px); }
         .fb-card { background: var(--ribbon-pink); padding: 30px; border-radius: 25px; text-align: center; }
         .story-card { background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-left: 6px solid var(--sage); }
 
-        input, textarea, select { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 10px; margin-bottom: 15px; font-family: inherit; box-sizing: border-box; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--slate); }
+        input, textarea, select { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 10px; font-family: inherit; box-sizing: border-box; }
         .submit-btn { width: 100%; background: var(--slate); color: white; padding: 15px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; text-transform: uppercase; }
         
-        footer { text-align: center; padding: 60px 20px; opacity: 0.5; font-size: 0.75rem; }
+        footer { text-align: center; padding: 60px 20px; font-size: 0.75rem; color: #2d3634; }
     </style>
 </head>
 <body>
@@ -132,13 +146,13 @@
             <div class="price">$15</div>
             <a href="https://cash.app/$nickdoin9/15" class="btn" target="_blank">Pay $15</a>
             <details>
-                <summary>Explore the Kit ▿</summary>
+                <summary>Explore the Kit</summary>
                 <div class="gallery-wrapper">
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=500"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1590439471364-192aa70c0b53?w=500"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=500"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=500"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1595425959632-34f2822322ce?w=500"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=500" alt="Small case contents"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1590439471364-192aa70c0b53?w=500" alt="Small case styling"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=500" alt="Small case essentials"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=500" alt="Small case items"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1595425959632-34f2822322ce?w=500" alt="Small case kit"></div>
                 </div>
                 <div class="details-content">
                     ✦ 3 Hair ties | 1 Pad & 1 Tampon<br>
@@ -153,13 +167,13 @@
             <div class="price">$25</div>
             <a href="https://cash.app/$nickdoin9/25" class="btn" target="_blank">Pay $25</a>
             <details>
-                <summary>Explore the Kit ▿</summary>
+                <summary>Explore the Kit</summary>
                 <div class="gallery-wrapper">
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?w=500"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1608611305410-639097e84992?w=500"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1526170315870-efcd0a73e28b?w=500"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1616150638538-ffb0679a3fc4?w=500"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?w=500" alt="Medium case contents"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1608611305410-639097e84992?w=500" alt="Medium case styling"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1526170315870-efcd0a73e28b?w=500" alt="Medium case essentials"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1616150638538-ffb0679a3fc4?w=500" alt="Medium case items"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500" alt="Medium case kit"></div>
                 </div>
                 <div class="details-content">
                     <strong>Everything in Small, plus:</strong><br>
@@ -174,13 +188,13 @@
             <div class="price">$35</div>
             <a href="https://cash.app/$nickdoin9/35" class="btn" target="_blank">Pay $35</a>
             <details>
-                <summary>Explore the Kit ▿</summary>
+                <summary>Explore the Kit</summary>
                 <div class="gallery-wrapper">
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1523944339743-0fe06f079939?w=500"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1596462502278-27bfac44221b?w=500"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=500"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1590439471364-192aa70c0b53?w=500"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1523944339743-0fe06f079939?w=500" alt="Large case contents"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1596462502278-27bfac44221b?w=500" alt="Large case styling"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500" alt="Large case essentials"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=500" alt="Large case items"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1590439471364-192aa70c0b53?w=500" alt="Large case kit"></div>
                 </div>
                 <div class="details-content">
                     <strong>The Ultimate Set:</strong><br>
@@ -209,16 +223,28 @@
         <div class="shipping-box">
             <h2 style="font-family:'Playfair Display'; margin-top:0;">Shipping Info</h2>
             <form action="https://formspree.io/f/mykdwplv" method="POST">
-                <input type="text" name="name" placeholder="Full Name" required>
-                <input type="text" name="cashtag" placeholder="Your $Cashtag" required>
-                <select name="order" required>
-                    <option value="" disabled selected>Select Your Case</option>
-                    <option value="Small">Small Case ($15)</option>
-                    <option value="Medium">Medium Case ($25)</option>
-                    <option value="Large">Large Case ($35)</option>
-                    <option value="Custom">Custom Order / Add-ons</option>
-                </select>
-                <textarea name="address" rows="3" placeholder="Shipping Address" required></textarea>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="e.g. Jane Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="cashtag">Your $Cashtag</label>
+                    <input type="text" id="cashtag" name="cashtag" placeholder="e.g. $johndoe" required>
+                </div>
+                <div class="form-group">
+                    <label for="order">Select Your Case</label>
+                    <select id="order" name="order" required>
+                        <option value="" disabled selected>Choose an option</option>
+                        <option value="Small">Small Case ($15)</option>
+                        <option value="Medium">Medium Case ($25)</option>
+                        <option value="Large">Large Case ($35)</option>
+                        <option value="Custom">Custom Order / Add-ons</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="address">Shipping Address</label>
+                    <textarea id="address" name="address" rows="3" placeholder="Street, City, State, ZIP" required></textarea>
+                </div>
                 <button type="submit" class="submit-btn">Save Shipping Details</button>
             </form>
         </div>
@@ -237,7 +263,7 @@
         </div>
     </div>
 
-    <footer>&copy; 2026 MaKe Case. | Prepared & Aesthetic</footer>
+    <footer>&copy; 2026 MaKe Case. | Prepared &amp; Aesthetic</footer>
 
 </body>
 </html>
