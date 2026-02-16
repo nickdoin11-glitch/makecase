@@ -16,6 +16,12 @@
             --ribbon-pink: #f4dada; 
         }
 
+        html { scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+        }
+
         body {
             margin: 0;
             font-family: 'Montserrat', sans-serif;
@@ -69,7 +75,8 @@
             overflow: hidden; /* Keeps the gallery inside the card */
         }
 
-        .tier-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px; text-align: center; }
+        .tier-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px; text-align: center; position: relative; }
+        .best-seller { display: inline-block; background: var(--gold); color: white; font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; padding: 4px 10px; border-radius: 20px; margin-top: 6px; }
         .price { font-size: 2rem; font-weight: 600; margin-bottom: 20px; color: var(--gold); text-align: center; }
         
         .btn { background: var(--cash-green); color: white; text-align: center; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; display: block; margin-bottom: 15px; }
@@ -108,9 +115,12 @@
             overflow: hidden;
             background: #eee;
         }
-        .gallery-item img { width: 100%; height: 250px; object-fit: cover; display: block; }
+        .gallery-item img { width: 100%; height: 250px; object-fit: cover; display: block; opacity: 0; transition: opacity 0.4s ease; }
+        .gallery-item img.loaded { opacity: 1; }
+        @media (prefers-reduced-motion: reduce) { .gallery-item img { opacity: 1; } .gallery-item img.loaded { opacity: 1; } }
 
         .details-content { font-size: 0.85rem; line-height: 1.8; padding: 15px 0; text-align: left; }
+        .details-content .kit-heading { font-size: 0.9rem; font-weight: 700; color: var(--slate); margin: 0 0 12px; font-family: 'Montserrat', sans-serif; }
 
         .addons-section { 
             max-width: 1000px; 
@@ -129,6 +139,35 @@
         .addon-item .addon-price { color: var(--gold); font-weight: 700; font-size: 1rem; flex-shrink: 0; }
         .addon-item .addon-btn { background: var(--slate); color: white; border: none; padding: 10px 18px; border-radius: 10px; font-size: 0.75rem; font-weight: 600; cursor: pointer; font-family: inherit; text-transform: uppercase; flex-shrink: 0; }
         .addon-item .addon-btn:hover { background: #3d4745; }
+
+        .faq-section {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        .faq-section h2 { font-family: 'Playfair Display', serif; margin: 0 0 24px; color: var(--slate); text-align: center; }
+        .faq-list { display: flex; flex-direction: column; gap: 12px; }
+        .faq-item {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.04);
+            overflow: hidden;
+        }
+        .faq-item summary {
+            padding: 18px 24px;
+            font-weight: 600;
+            color: var(--slate);
+            cursor: pointer;
+            list-style: none;
+            letter-spacing: normal;
+            text-align: left;
+        }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::before { content: none; }
+        .faq-item summary::after { content: " ▸"; color: var(--gold); float: right; transition: transform 0.2s; }
+        .faq-item[open] summary::after { content: " ▾"; }
+        .faq-item p { padding: 0 24px 20px; margin: 0; font-size: 0.9rem; line-height: 1.6; color: #555; }
 
         .bottom-section { max-width: 1100px; margin: 60px auto; padding: 0 20px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; }
         .reviews-section { flex: 2; min-width: min(100%, 400px); }
@@ -178,6 +217,13 @@
             font-size: 1.4rem;
         }
         .bag-toggle:hover { transform: scale(1.05); }
+        .bag-toggle.bag-pop { animation: bag-pop 0.5s ease; }
+        @keyframes bag-pop {
+            0%, 100% { transform: scale(1); }
+            30% { transform: scale(1.25); }
+            50% { transform: scale(0.95); }
+            70% { transform: scale(1.1); }
+        }
         .bag-badge {
             position: absolute;
             top: -4px;
@@ -196,6 +242,51 @@
             transition: opacity 0.2s;
         }
         .bag-badge.show { opacity: 1; }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--slate);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            z-index: 200;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            width: 48px;
+            height: 48px;
+            background: white;
+            border: 2px solid var(--ribbon-pink);
+            border-radius: 50%;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+        }
+        .scroll-top.show { opacity: 1; visibility: visible; }
+        .scroll-top:hover { transform: translateY(-2px); }
 
         .bag-overlay {
             position: fixed;
@@ -244,15 +335,24 @@
             border-bottom: 1px solid rgba(0,0,0,0.06);
             gap: 12px;
         }
+        .bag-item-info { flex: 1; min-width: 0; }
         .bag-item-name { font-weight: 600; }
-        .bag-item-price { color: var(--gold); }
-        .bag-item-remove { background: none; border: none; color: #999; cursor: pointer; font-size: 0.75rem; text-decoration: underline; }
+        .bag-item-price { color: var(--gold); font-size: 0.85rem; margin-top: 2px; }
+        .bag-item-controls { display: flex; align-items: center; gap: 8px; }
+        .bag-qty-btn { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #ddd; background: white; color: var(--slate); font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; padding: 0; transition: background 0.2s, border-color 0.2s; }
+        .bag-qty-btn:hover { background: var(--ribbon-pink); border-color: var(--ribbon-pink); }
+        .bag-qty-num { font-weight: 600; min-width: 24px; text-align: center; font-size: 0.9rem; }
+        .bag-item-remove { background: none; border: none; color: #999; cursor: pointer; font-size: 0.75rem; text-decoration: underline; margin-left: 4px; }
         .bag-item-remove:hover { color: var(--slate); }
         .bag-footer {
             padding: 24px;
             border-top: 1px solid rgba(0,0,0,0.08);
         }
         .bag-shipping { padding: 0 20px 20px; border-top: 1px solid rgba(0,0,0,0.06); margin-top: 10px; padding-top: 20px; }
+        .bag-steps { display: flex; align-items: center; justify-content: space-between; font-size: 0.7rem; color: #888; margin-bottom: 16px; padding: 0 4px; }
+        .bag-steps span { flex: 1; text-align: center; }
+        .bag-steps span.done { color: var(--cash-green); font-weight: 600; }
+        .bag-steps span.active { color: var(--gold); font-weight: 600; }
         .bag-shipping h3 { font-size: 0.9rem; margin: 0 0 12px; font-family: 'Playfair Display', serif; }
         .bag-shipping .form-group { margin-bottom: 10px; }
         .bag-shipping .form-group label { font-size: 0.75rem; }
@@ -269,6 +369,9 @@
 </head>
 <body>
 
+    <div class="toast" id="toast">Added to bag</div>
+    <button type="button" class="scroll-top" id="scroll-top" aria-label="Scroll to top">↑</button>
+
     <button type="button" class="bag-toggle" id="bag-toggle" aria-label="View bag">
         🛍️
         <span class="bag-badge" id="bag-badge">0</span>
@@ -282,6 +385,11 @@
         </div>
         <div class="bag-body" id="bag-body"></div>
         <div class="bag-footer" id="bag-footer" style="display:none;">
+            <div class="bag-steps" id="bag-steps">
+                <span class="done">1. Add items ✓</span>
+                <span class="active">2. Enter shipping</span>
+                <span>3. Pay</span>
+            </div>
             <div class="bag-shipping">
                 <h3>Shipping — required before payment</h3>
                 <div class="form-group">
@@ -302,6 +410,7 @@
                 <span id="bag-total">$0</span>
             </div>
             <button type="button" id="bag-pay-btn" class="bag-pay-btn">Pay via Cash App</button>
+            <p style="font-size: 0.7rem; color: #888; margin: 8px 0 0; text-align: center;">Pay securely via Cash App</p>
             <p id="bag-pay-error" class="bag-pay-error">Please fill in all shipping fields.</p>
         </div>
     </div>
@@ -316,7 +425,6 @@
             <div class="tier-name">Small Case</div>
             <div class="price">$15</div>
             <button type="button" class="btn-bag add-to-bag">Add to bag</button>
-            <a href="https://cash.app/$nickdoin9/15" class="btn" target="_blank">Pay $15</a>
             <details>
                 <summary>Explore the Kit</summary>
                 <div class="gallery-wrapper">
@@ -327,18 +435,18 @@
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1595425959632-34f2822322ce?w=800&q=85" alt="Road trip ready kit" loading="lazy"></div>
                 </div>
                 <div class="details-content">
-                    ✦ 3 Hair ties | 1 Pad & 1 Tampon<br>
+                    <p class="kit-heading">What's Inside</p>
+                    ✦ 3 Hair ties | 1 Pad &amp; 1 Tampon<br>
                     ✦ 1 Chapstick | 1 Hand sanitizer<br>
                     ✦ 3 Mixed bandaids | 2 Body wipes
                 </div>
             </details>
         </div>
 
-        <div class="pricing-card" style="border: 2px solid var(--gold);" data-tier="Medium" data-price="25">
-            <div class="tier-name">Medium Case</div>
+        <div class="pricing-card" data-tier="Medium" data-price="25">
+            <div class="tier-name">Medium Case<br><span class="best-seller">BEST SELLER</span></div>
             <div class="price">$25</div>
             <button type="button" class="btn-bag add-to-bag">Add to bag</button>
-            <a href="https://cash.app/$nickdoin9/25" class="btn" target="_blank">Pay $25</a>
             <details>
                 <summary>Explore the Kit</summary>
                 <div class="gallery-wrapper">
@@ -349,6 +457,7 @@
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&q=85" alt="Complete medium kit" loading="lazy"></div>
                 </div>
                 <div class="details-content">
+                    <p class="kit-heading">What's Inside</p>
                     <strong>Everything in Small, plus:</strong><br>
                     ✦ 1 Car spray | 1 Large lint roller<br>
                     ✦ Pimple patches | Hand lotion
@@ -360,7 +469,6 @@
             <div class="tier-name">Large Case</div>
             <div class="price">$35</div>
             <button type="button" class="btn-bag add-to-bag">Add to bag</button>
-            <a href="https://cash.app/$nickdoin9/35" class="btn" target="_blank">Pay $35</a>
             <details>
                 <summary>Explore the Kit</summary>
                 <div class="gallery-wrapper">
@@ -371,8 +479,9 @@
                     <div class="gallery-item"><img src="https://images.unsplash.com/photo-1596462502278-27bfac44221b?w=800&q=85" alt="Large case complete set" loading="lazy"></div>
                 </div>
                 <div class="details-content">
+                    <p class="kit-heading">What's Inside</p>
                     <strong>The Ultimate Set:</strong><br>
-                    ✦ 2 Pad & 2 Tampon | 5 Mixed bandaids<br>
+                    ✦ 2 Pad &amp; 2 Tampon | 5 Mixed bandaids<br>
                     ✦ 3 Body wipes | Feminine wipes<br>
                     ✦ 1 Car spray | 1 Car tissue
                 </div>
@@ -428,6 +537,28 @@
             </div>
         </div>
     </div>
+
+    <section class="faq-section">
+        <h2>FAQs</h2>
+        <div class="faq-list">
+            <details class="faq-item">
+                <summary>How do I pay?</summary>
+                <p>Add items to your bag, enter your shipping info, then click "Pay via Cash App." You'll be redirected to Cash App to complete payment. Make sure you have the Cash App app or use cash.app in your browser.</p>
+            </details>
+            <details class="faq-item">
+                <summary>How long does shipping take?</summary>
+                <p>Orders typically ship within 2–3 business days. Delivery usually takes 3–7 business days depending on your location. You'll receive tracking once your order ships.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Can I customize my order?</summary>
+                <p>Yes! Add any case plus our custom add-ons to your bag. Need something special? Message us on <a href="https://www.facebook.com/profile.php?id=61587885576573" target="_blank" style="color: var(--gold);">Facebook</a> — we'd love to help.</p>
+            </details>
+            <details class="faq-item">
+                <summary>What's included in each case?</summary>
+                <p><strong>Small ($15):</strong> Hair ties, pad & tampon, chapstick, hand sanitizer, bandaids, body wipes. <strong>Medium ($25):</strong> Everything in Small plus car spray, lint roller, pimple patches, hand lotion. <strong>Large ($35):</strong> The ultimate set with more pads, tampons, bandaids, wipes, feminine wipes, car spray & tissue.</p>
+            </details>
+        </div>
+    </section>
 
     <div class="bottom-section">
         <div class="reviews-section">
@@ -500,11 +631,50 @@
                 bag.push({ tier, price: parseInt(price, 10), qty: 1 });
             }
             saveBag(bag);
-            openBag();
+            showToast('Added to bag');
+            bagIconPop();
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(showToast.timer);
+            showToast.timer = setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        function updateBagSteps() {
+            const steps = document.querySelectorAll('#bag-steps span');
+            if (!steps.length) return;
+            const name = (document.getElementById('bag-name')?.value || '').trim();
+            const cashtag = (document.getElementById('bag-cashtag')?.value || '').trim();
+            const addr = (document.getElementById('bag-address')?.value || '').trim();
+            steps[0].className = 'done';
+            steps[1].className = name && cashtag && addr ? 'done' : 'active';
+            steps[2].className = name && cashtag && addr ? 'active' : '';
+        }
+
+        function bagIconPop() {
+            const toggle = document.getElementById('bag-toggle');
+            toggle.classList.remove('bag-pop');
+            void toggle.offsetWidth;
+            toggle.classList.add('bag-pop');
+            setTimeout(() => toggle.classList.remove('bag-pop'), 500);
         }
 
         function removeFromBag(tier) {
             const bag = getBag().filter(i => i.tier !== tier);
+            saveBag(bag);
+        }
+
+        function updateQuantity(tier, delta) {
+            const bag = getBag();
+            const item = bag.find(i => i.tier === tier);
+            if (!item) return;
+            item.qty += delta;
+            if (item.qty < 1) {
+                bag.splice(bag.indexOf(item), 1);
+            }
             saveBag(bag);
         }
 
@@ -541,20 +711,32 @@
             footer.style.display = 'block';
             document.getElementById('bag-total').textContent = '$' + total;
             document.getElementById('bag-pay-error').classList.remove('show');
+            updateBagSteps();
 
             body.innerHTML = bag.map(item => {
                 const isCase = ['Small', 'Medium', 'Large'].includes(item.tier);
                 const label = isCase ? item.tier + ' Case' : item.tier;
                 return `
                 <div class="bag-item">
-                    <div>
-                        <div class="bag-item-name">${label} ${item.qty > 1 ? '×' + item.qty : ''}</div>
-                        <div class="bag-item-price">$${item.price}${item.qty > 1 ? ' × ' + item.qty + ' = $' + (item.price * item.qty) : ''}</div>
+                    <div class="bag-item-info">
+                        <div class="bag-item-name">${label}</div>
+                        <div class="bag-item-price">$${item.price} × ${item.qty} = $${item.price * item.qty}</div>
                     </div>
-                    <button type="button" class="bag-item-remove" data-tier="${item.tier}">Remove</button>
+                    <div class="bag-item-controls">
+                        <button type="button" class="bag-qty-btn bag-qty-minus" data-tier="${item.tier}" aria-label="Decrease quantity">−</button>
+                        <span class="bag-qty-num">${item.qty}</span>
+                        <button type="button" class="bag-qty-btn bag-qty-plus" data-tier="${item.tier}" aria-label="Increase quantity">+</button>
+                        <button type="button" class="bag-item-remove" data-tier="${item.tier}">Remove</button>
+                    </div>
                 </div>
             `}).join('');
 
+            body.querySelectorAll('.bag-qty-minus').forEach(btn => {
+                btn.addEventListener('click', () => updateQuantity(btn.dataset.tier, -1));
+            });
+            body.querySelectorAll('.bag-qty-plus').forEach(btn => {
+                btn.addEventListener('click', () => updateQuantity(btn.dataset.tier, 1));
+            });
             body.querySelectorAll('.bag-item-remove').forEach(btn => {
                 btn.addEventListener('click', () => removeFromBag(btn.dataset.tier));
             });
@@ -630,6 +812,22 @@
         document.getElementById('bag-toggle').addEventListener('click', openBag);
         document.getElementById('bag-close').addEventListener('click', closeBag);
         document.getElementById('bag-overlay').addEventListener('click', closeBag);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeBag(); });
+        ['bag-name','bag-cashtag','bag-address'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('input', updateBagSteps);
+        });
+
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            if (img.complete) img.classList.add('loaded');
+            else img.addEventListener('load', () => img.classList.add('loaded'));
+        });
+
+        const scrollTopBtn = document.getElementById('scroll-top');
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.classList.toggle('show', window.scrollY > 400);
+        });
+        scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
         renderBag();
 
