@@ -117,10 +117,28 @@
             border: 2px dashed var(--ribbon-pink);
         }
         .addon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 20px; }
-        .addon-item { font-size: 0.85rem; color: var(--slate); background: white; padding: 12px; border-radius: 12px; border: 1px solid #f0f0f0; }
+        .addon-item { font-size: 0.85rem; color: var(--slate); background: white; padding: 14px 16px; border-radius: 12px; border: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; }
+        .addon-item:hover { border-color: var(--gold); box-shadow: 0 4px 12px rgba(197,164,126,0.2); }
+        .addon-item .addon-name { flex: 1; min-width: 0; }
+        .addon-item .addon-price { color: var(--gold); font-weight: 600; }
+        .addon-item .addon-btn { background: var(--slate); color: white; border: none; padding: 8px 14px; border-radius: 8px; font-size: 0.7rem; font-weight: 600; cursor: pointer; font-family: inherit; text-transform: uppercase; }
+        .addon-item .addon-btn:hover { background: #3d4745; }
 
-        .bottom-section { display: flex; flex-wrap: wrap; gap: 30px; max-width: 1100px; margin: 60px auto; padding: 0 20px; align-items: flex-start; }
-        .shipping-box { flex: 2; background: white; padding: 35px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); min-width: min(100%, 320px); }
+        .bottom-section { max-width: 1100px; margin: 60px auto; padding: 0 20px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; }
+        .reviews-section { flex: 2; min-width: min(100%, 400px); }
+        .reviews-section h2 { font-family: 'Playfair Display', serif; margin: 0 0 20px; color: var(--slate); }
+        .reviews-list { display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; }
+        .review-card { background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border-left: 4px solid var(--sage); }
+        .review-card .review-name { font-weight: 600; color: var(--slate); margin-bottom: 4px; }
+        .review-card .review-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 8px; }
+        .review-card .review-text { font-size: 0.9rem; line-height: 1.6; color: #555; }
+        .review-form-box { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 2px dashed var(--ribbon-pink); }
+        .review-form-box h3 { font-family: 'Playfair Display', serif; margin: 0 0 16px; font-size: 1.2rem; }
+        .review-form-box .form-group { margin-bottom: 12px; }
+        .review-form-box .stars-input { display: flex; gap: 8px; margin-bottom: 12px; }
+        .review-form-box .stars-input button { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #ddd; transition: color 0.2s; padding: 0; }
+        .review-form-box .stars-input button.filled { color: var(--gold); }
+        .review-form-box .stars-input button:hover { color: var(--gold); }
         .side-box { flex: 1; display: flex; flex-direction: column; gap: 20px; min-width: min(100%, 300px); }
         .fb-card { background: var(--ribbon-pink); padding: 30px; border-radius: 25px; text-align: center; }
         .story-card { background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-left: 6px solid var(--sage); }
@@ -358,48 +376,68 @@
 
     <div class="addons-section">
         <h3 style="font-family:'Playfair Display'; color: var(--gold); margin: 0;">✨ Custom Add-Ons</h3>
-        <p style="font-size: 0.8rem; margin-top: 5px;">Build your perfect emergency kit!</p>
+        <p style="font-size: 0.8rem; margin-top: 5px;">Build your perfect emergency kit — add to your case!</p>
         <div class="addon-grid">
-            <div class="addon-item">Extra Hair Ties (3pk)</div>
-            <div class="addon-item">Premium Body Wipes</div>
-            <div class="addon-item">Luxury Hand Cream</div>
-            <div class="addon-item">Car Refreshing Spray</div>
-            <div class="addon-item">Compact Lint Roller</div>
-            <div class="addon-item">Extra Pads/Tampons</div>
+            <div class="addon-item" data-addon="Extra Hair Ties (3pk)" data-price="2">
+                <span class="addon-name">Extra Hair Ties (3pk)</span>
+                <span class="addon-price">$2</span>
+                <button type="button" class="addon-btn add-addon">+ Add</button>
+            </div>
+            <div class="addon-item" data-addon="Premium Body Wipes" data-price="3">
+                <span class="addon-name">Premium Body Wipes</span>
+                <span class="addon-price">$3</span>
+                <button type="button" class="addon-btn add-addon">+ Add</button>
+            </div>
+            <div class="addon-item" data-addon="Luxury Hand Cream" data-price="3">
+                <span class="addon-name">Luxury Hand Cream</span>
+                <span class="addon-price">$3</span>
+                <button type="button" class="addon-btn add-addon">+ Add</button>
+            </div>
+            <div class="addon-item" data-addon="Car Refreshing Spray" data-price="2">
+                <span class="addon-name">Car Refreshing Spray</span>
+                <span class="addon-price">$2</span>
+                <button type="button" class="addon-btn add-addon">+ Add</button>
+            </div>
+            <div class="addon-item" data-addon="Compact Lint Roller" data-price="1">
+                <span class="addon-name">Compact Lint Roller</span>
+                <span class="addon-price">$1</span>
+                <button type="button" class="addon-btn add-addon">+ Add</button>
+            </div>
+            <div class="addon-item" data-addon="Extra Pads/Tampons" data-price="2">
+                <span class="addon-name">Extra Pads/Tampons</span>
+                <span class="addon-price">$2</span>
+                <button type="button" class="addon-btn add-addon">+ Add</button>
+            </div>
         </div>
     </div>
 
     <div class="bottom-section">
-        <div class="shipping-box">
-            <h2 style="font-family:'Playfair Display'; margin-top:0;">Custom Orders &amp; Shipping</h2>
-            <p style="font-size: 0.85rem; color: #666; margin: 0 0 15px;">Use the bag above to add cases, enter shipping, and pay in one flow. Use this form for custom orders, add-ons, or if you paid directly and need to send your address.</p>
-            <form action="https://formspree.io/f/mykdwplv" method="POST">
+        <div class="reviews-section">
+            <h2>⭐ Reviews</h2>
+            <div class="reviews-list" id="reviews-list"></div>
+            <div class="review-form-box">
+                <h3>Write a Review</h3>
                 <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" placeholder="e.g. Jane Doe" required>
+                    <label for="review-name">Your Name</label>
+                    <input type="text" id="review-name" placeholder="e.g. Sarah M.">
                 </div>
                 <div class="form-group">
-                    <label for="cashtag">Your $Cashtag</label>
-                    <input type="text" id="cashtag" name="cashtag" placeholder="e.g. $johndoe" required>
+                    <label>Rating</label>
+                    <div class="stars-input" id="stars-input">
+                        <button type="button" data-rating="1" aria-label="1 star">☆</button>
+                        <button type="button" data-rating="2" aria-label="2 stars">☆</button>
+                        <button type="button" data-rating="3" aria-label="3 stars">☆</button>
+                        <button type="button" data-rating="4" aria-label="4 stars">☆</button>
+                        <button type="button" data-rating="5" aria-label="5 stars">☆</button>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="order">Select Your Case</label>
-                    <select id="order" name="order" required>
-                        <option value="" disabled selected>Choose an option</option>
-                        <option value="Small">Small Case ($15)</option>
-                        <option value="Medium">Medium Case ($25)</option>
-                        <option value="Large">Large Case ($35)</option>
-                        <option value="Custom">Custom Order / Add-ons</option>
-                    </select>
+                    <label for="review-text">Your Review</label>
+                    <textarea id="review-text" rows="4" placeholder="Tell us about your MaKe Case experience..."></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="address">Shipping Address</label>
-                    <textarea id="address" name="address" rows="3" placeholder="Street, City, State, ZIP" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Save Shipping Details</button>
-            </form>
+                <button type="button" class="submit-btn" id="submit-review">Submit Review</button>
+            </div>
         </div>
-
         <div class="side-box">
             <div class="fb-card">
                 <h3>See Inside! 🎀</h3>
@@ -486,15 +524,18 @@
             document.getElementById('bag-total').textContent = '$' + total;
             document.getElementById('bag-pay-error').classList.remove('show');
 
-            body.innerHTML = bag.map(item => `
+            body.innerHTML = bag.map(item => {
+                const isCase = ['Small', 'Medium', 'Large'].includes(item.tier);
+                const label = isCase ? item.tier + ' Case' : item.tier;
+                return `
                 <div class="bag-item">
                     <div>
-                        <div class="bag-item-name">${item.tier} Case ${item.qty > 1 ? '×' + item.qty : ''}</div>
+                        <div class="bag-item-name">${label} ${item.qty > 1 ? '×' + item.qty : ''}</div>
                         <div class="bag-item-price">$${item.price}${item.qty > 1 ? ' × ' + item.qty + ' = $' + (item.price * item.qty) : ''}</div>
                     </div>
                     <button type="button" class="bag-item-remove" data-tier="${item.tier}">Remove</button>
                 </div>
-            `).join('');
+            `}).join('');
 
             body.querySelectorAll('.bag-item-remove').forEach(btn => {
                 btn.addEventListener('click', () => removeFromBag(btn.dataset.tier));
@@ -516,7 +557,10 @@
 
             const bag = getBag();
             const total = bag.reduce((sum, i) => sum + i.price * i.qty, 0);
-            const orderStr = bag.map(i => `${i.tier} Case ×${i.qty} ($${i.price * i.qty})`).join(', ');
+            const orderStr = bag.map(i => {
+                const label = ['Small','Medium','Large'].includes(i.tier) ? i.tier + ' Case' : i.tier;
+                return `${label} ×${i.qty} ($${i.price * i.qty})`;
+            }).join(', ');
 
             errorEl.classList.remove('show');
             btn.disabled = true;
@@ -557,11 +601,94 @@
             });
         });
 
+        document.querySelectorAll('.add-addon').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const item = btn.closest('.addon-item');
+                addToBag(item.dataset.addon, item.dataset.price);
+            });
+        });
+
         document.getElementById('bag-toggle').addEventListener('click', openBag);
         document.getElementById('bag-close').addEventListener('click', closeBag);
         document.getElementById('bag-overlay').addEventListener('click', closeBag);
 
         renderBag();
+
+        // Reviews — real-time via localStorage
+        const REVIEWS_KEY = 'makecase_reviews';
+        const DEFAULT_REVIEWS = [
+            { name: 'Jessica T.', stars: 5, text: 'Game changer for road trips! Everything I need is in one place. The Medium case is perfect for my car.' },
+            { name: 'Morgan K.', stars: 5, text: 'So aesthetic and practical. My friends keep asking where I got it. Will definitely order another!' },
+            { name: 'Riley M.', stars: 4, text: 'Love the quality and organization. Arrived quickly. Added the luxury hand cream — totally worth it!' }
+        ];
+
+        function getUserReviews() {
+            try {
+                const data = localStorage.getItem(REVIEWS_KEY);
+                return data ? JSON.parse(data) : [];
+            } catch { return []; }
+        }
+
+        function getAllReviews() {
+            return [...DEFAULT_REVIEWS, ...getUserReviews()];
+        }
+
+        function addReview(review) {
+            const user = getUserReviews();
+            user.push(review);
+            localStorage.setItem(REVIEWS_KEY, JSON.stringify(user));
+            renderReviews();
+        }
+
+        function renderReviews() {
+            const reviews = getAllReviews();
+            const list = document.getElementById('reviews-list');
+            list.innerHTML = reviews.map(r => `
+                <div class="review-card">
+                    <div class="review-name">${escapeHtml(r.name)}</div>
+                    <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</div>
+                    <div class="review-text">${escapeHtml(r.text)}</div>
+                </div>
+            `).join('');
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        let selectedStars = 0;
+        const starsInput = document.getElementById('stars-input');
+        starsInput.querySelectorAll('button').forEach((btn, i) => {
+            btn.addEventListener('click', () => {
+                selectedStars = i + 1;
+                starsInput.querySelectorAll('button').forEach((b, j) => {
+                    b.classList.toggle('filled', j < selectedStars);
+                    b.textContent = j < selectedStars ? '★' : '☆';
+                });
+            });
+        });
+
+        document.getElementById('submit-review').addEventListener('click', () => {
+            const name = (document.getElementById('review-name').value || '').trim();
+            const text = (document.getElementById('review-text').value || '').trim();
+            if (!name || !text) {
+                alert('Please enter your name and review.');
+                return;
+            }
+            addReview({ name, stars: selectedStars || 5, text });
+            document.getElementById('review-name').value = '';
+            document.getElementById('review-text').value = '';
+            selectedStars = 0;
+            starsInput.querySelectorAll('button').forEach((b, j) => {
+                b.classList.remove('filled');
+                b.textContent = '☆';
+            });
+        });
+
+        renderReviews();
     </script>
 </body>
 </html>
