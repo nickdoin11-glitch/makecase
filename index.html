@@ -977,6 +977,16 @@
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const item = btn.closest('.addon-item');
+                
+                // Check if there's a case in the bag
+                const bag = getBag();
+                const hasCase = bag.some(i => ['Small','Medium','Large'].includes(i.tier));
+                
+                if (!hasCase) {
+                    showToast('Please add a case to your bag first');
+                    return;
+                }
+                
                 addToBag(item.dataset.addon, item.dataset.price);
             });
         });
