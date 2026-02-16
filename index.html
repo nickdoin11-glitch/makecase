@@ -304,51 +304,80 @@
             top: 0;
             right: 0;
             width: 100%;
-            max-width: 380px;
+            max-width: 420px;
             height: 100%;
             background: var(--cream);
             box-shadow: -10px 0 40px rgba(0,0,0,0.15);
             z-index: 102;
-            display: flex;
-            flex-direction: column;
+            overflow-y: auto;
             transform: translateX(100%);
             transition: transform 0.3s ease;
         }
         .bag-drawer.open { transform: translateX(0); }
 
         .bag-header {
-            padding: 24px;
+            padding: 20px;
             border-bottom: 1px solid rgba(0,0,0,0.08);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
         .bag-header h2 { font-family: 'Playfair Display', serif; margin: 0; font-size: 1.5rem; }
         .bag-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--slate); padding: 0 8px; line-height: 1; }
-        .bag-body { flex: 1; overflow-y: auto; padding: 20px; }
+        .bag-body { 
+            padding: 16px; 
+            background: white;
+        }
         .bag-empty { text-align: center; padding: 40px 20px; color: var(--gold); font-style: italic; }
         .bag-item {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            border: 1px solid #eee;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            gap: 12px;
         }
-        .bag-item-info { flex: 1; min-width: 0; }
-        .bag-item-name { font-weight: 600; }
-        .bag-item-price { color: var(--gold); font-size: 0.85rem; margin-top: 2px; }
-        .bag-item-controls { display: flex; align-items: center; gap: 8px; }
+        .bag-item-info { 
+            flex: 1; 
+            min-width: 0; 
+        }
+        .bag-item-name { 
+            font-weight: 600; 
+            font-size: 0.9rem;
+            margin-bottom: 2px;
+        }
+        .bag-item-price { 
+            color: var(--gold); 
+            font-size: 0.8rem; 
+        }
+        .bag-item-controls { 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+        }
         .bag-qty-btn { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #ddd; background: white; color: var(--slate); font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; padding: 0; transition: background 0.2s, border-color 0.2s; }
         .bag-qty-btn:hover { background: var(--ribbon-pink); border-color: var(--ribbon-pink); }
         .bag-qty-num { font-weight: 600; min-width: 24px; text-align: center; font-size: 0.9rem; }
         .bag-item-remove { background: none; border: none; color: #999; cursor: pointer; font-size: 0.75rem; text-decoration: underline; margin-left: 4px; }
         .bag-item-remove:hover { color: var(--slate); }
         .bag-footer {
-            padding: 24px;
+            padding: 20px;
             border-top: 1px solid rgba(0,0,0,0.08);
+            background: white;
         }
-        .bag-shipping { padding: 0 20px 20px; border-top: 1px solid rgba(0,0,0,0.06); margin-top: 10px; padding-top: 20px; }
+        .bag-shipping { 
+            padding: 16px;
+            background: #fafafa;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            border: 1px solid #eee;
+        }
         .bag-steps { display: flex; align-items: center; justify-content: space-between; font-size: 0.7rem; color: #888; margin-bottom: 16px; padding: 0 4px; }
         .bag-steps span { flex: 1; text-align: center; }
         .bag-steps span.done { color: var(--cash-green); font-weight: 600; }
@@ -357,7 +386,13 @@
         .bag-shipping .form-group { margin-bottom: 10px; }
         .bag-shipping .form-group label { font-size: 0.75rem; }
         .bag-shipping input, .bag-shipping textarea { padding: 10px; font-size: 0.9rem; }
-        .bag-total { font-size: 1.2rem; font-weight: 700; margin-bottom: 16px; display: flex; justify-content: space-between; }
+        .bag-total { 
+            background: #fafafa;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            border: 1px solid #eee;
+        }
         .bag-pay-btn { width: 100%; padding: 15px; background: var(--cash-green); color: white; border: none; border-radius: 12px; font-weight: 600; font-size: 0.9rem; cursor: pointer; font-family: inherit; text-transform: uppercase; }
         .bag-pay-btn:hover:not(:disabled) { background: #00b82b; }
         .bag-pay-btn:disabled { opacity: 0.7; cursor: not-allowed; }
@@ -384,7 +419,7 @@
             <button type="button" class="bag-close" id="bag-close" aria-label="Close bag">&times;</button>
         </div>
         <div class="bag-body" id="bag-body"></div>
-        <div class="bag-footer" id="bag-footer" style="display:none;">
+        <div class="bag-footer" id="bag-footer">
             <div class="bag-steps" id="bag-steps">
                 <span class="done">1. Add items ✓</span>
                 <span class="active">2. Enter shipping</span>
@@ -404,10 +439,24 @@
                     <label for="bag-address">Shipping Address</label>
                     <textarea id="bag-address" rows="3" placeholder="Street, City, State, ZIP" autocomplete="street-address"></textarea>
                 </div>
+                <div id="shipping-options" style="margin-top: 15px; display: none;">
+                    <p style="font-size: 0.8rem; font-weight: 600; margin-bottom: 10px;">Select Shipping Method:</p>
+                    <div id="shipping-methods"></div>
+                </div>
             </div>
             <div class="bag-total">
-                <span>Total</span>
-                <span id="bag-total">$0</span>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span>Subtotal</span>
+                    <span id="bag-subtotal">$0</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px; color: #666; font-size: 0.9rem;">
+                    <span>Shipping</span>
+                    <span id="bag-shipping-cost">--</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-weight: 700;">
+                    <span>Total</span>
+                    <span id="bag-total">$0</span>
+                </div>
             </div>
             <button type="button" id="bag-pay-btn" class="bag-pay-btn">Pay via Cash App</button>
             <p style="font-size: 0.7rem; color: #888; margin: 8px 0 0; text-align: center;">Pay securely via Cash App</p>
@@ -438,7 +487,8 @@
                     <p class="kit-heading">What's Inside</p>
                     ✦ 3 Hair ties | 1 Pad &amp; 1 Tampon<br>
                     ✦ 1 Chapstick | 1 Hand sanitizer<br>
-                    ✦ 3 Mixed bandaids | 2 Body wipes
+                    ✦ 2 Little bandaids | 1 Big bandaid<br>
+                    ✦ 1 Mini lint roller | 2 Body wipes
                 </div>
             </details>
         </div>
@@ -458,9 +508,13 @@
                 </div>
                 <div class="details-content">
                     <p class="kit-heading">What's Inside</p>
-                    <strong>Everything in Small, plus:</strong><br>
-                    ✦ 1 Car spray | 1 Large lint roller<br>
-                    ✦ Pimple patches | Hand lotion
+                    ✦ 3 Hair ties | 1 Pad &amp; 1 Tampon<br>
+                    ✦ 1 Chapstick | 1 Hand sanitizer<br>
+                    ✦ 2 Little bandaids | 1 Big bandaid<br>
+                    ✦ 2 Body wipes | 1 Car spray<br>
+                    ✦ 1 Large lint roller | 1 Tooth picks<br>
+                    ✦ Pimple patches | 1 Hand lotion<br>
+                    ✦ 1 Mask
                 </div>
             </details>
         </div>
@@ -481,9 +535,13 @@
                 <div class="details-content">
                     <p class="kit-heading">What's Inside</p>
                     <strong>The Ultimate Set:</strong><br>
-                    ✦ 2 Pad &amp; 2 Tampon | 5 Mixed bandaids<br>
-                    ✦ 3 Body wipes | Feminine wipes<br>
-                    ✦ 1 Car spray | 1 Car tissue
+                    ✦ 3 Hair ties | 2 Pad &amp; 2 Tampon<br>
+                    ✦ 1 Chapstick | 1 Hand sanitizer<br>
+                    ✦ 3 Little bandaids | 2 Big bandaid<br>
+                    ✦ 3 Body wipes | 1 Car spray<br>
+                    ✦ 1 Large lint roller | 3 Tooth picks<br>
+                    ✦ Pimple patches | 1 Hand lotion<br>
+                    ✦ 2 Masks | 1 Gum pack
                 </div>
             </details>
         </div>
@@ -555,7 +613,7 @@
             </details>
             <details class="faq-item">
                 <summary>What's included in each case?</summary>
-                <p><strong>Small ($15):</strong> Hair ties, pad & tampon, chapstick, hand sanitizer, bandaids, body wipes. <strong>Medium ($25):</strong> Everything in Small plus car spray, lint roller, pimple patches, hand lotion. <strong>Large ($35):</strong> The ultimate set with more pads, tampons, bandaids, wipes, feminine wipes, car spray & tissue.</p>
+                <p><strong>Small ($15):</strong> 3 hair ties, 1 pad & 1 tampon, chapstick, hand sanitizer, 2 little bandaids & 1 big bandaid, mini lint roller, 2 body wipes. <strong>Medium ($25):</strong> Everything in Small plus car spray, large lint roller, tooth picks, pimple patches, hand lotion, mask. <strong>Large ($35):</strong> The ultimate set with more pads/tampons, bandaids, body wipes, car spray, large lint roller, 3 tooth picks, pimple patches, hand lotion, 2 masks, gum pack.</p>
             </details>
         </div>
     </section>
@@ -692,71 +750,80 @@
 
         function renderBag() {
             const bag = getBag();
-            const total = bag.reduce((sum, i) => sum + i.price * i.qty, 0);
+            const body = document.getElementById('bag-body');
+            const footer = document.getElementById('bag-footer');
+            const badge = document.getElementById('bag-badge');
             const count = bag.reduce((sum, i) => sum + i.qty, 0);
 
-            const badge = document.getElementById('bag-badge');
             badge.textContent = count;
             badge.classList.toggle('show', count > 0);
 
-            const body = document.getElementById('bag-body');
-            const footer = document.getElementById('bag-footer');
+            // Always show footer with shipping section
+            footer.style.display = 'block';
 
             if (bag.length === 0) {
-                body.innerHTML = '<p class="bag-empty">Your bag is empty.<br>Add a case to get started!</p>';
-                footer.style.display = 'none';
-                return;
+                body.innerHTML = '<div class="bag-empty">Your bag is empty</div>';
+            } else {
+                body.innerHTML = bag.map(item => {
+                    const label = ['Small','Medium','Large'].includes(item.tier) ? item.tier + ' Case' : item.tier;
+                    return `
+                    <div class="bag-item">
+                        <div class="bag-item-info">
+                            <div class="bag-item-name">${label}</div>
+                            <div class="bag-item-price">$${item.price} × ${item.qty}</div>
+                        </div>
+                        <div class="bag-item-controls">
+                            <button type="button" class="bag-qty-btn bag-qty-minus" data-tier="${item.tier}" aria-label="Decrease quantity">−</button>
+                            <span class="bag-qty-num">${item.qty}</span>
+                            <button type="button" class="bag-qty-btn bag-qty-plus" data-tier="${item.tier}" aria-label="Increase quantity">+</button>
+                            <button type="button" class="bag-item-remove" data-tier="${item.tier}">Remove</button>
+                        </div>
+                    </div>
+                `}).join('');
+
+                body.querySelectorAll('.bag-qty-minus').forEach(btn => {
+                    btn.addEventListener('click', () => updateQuantity(btn.dataset.tier, -1));
+                });
+                body.querySelectorAll('.bag-qty-plus').forEach(btn => {
+                    btn.addEventListener('click', () => updateQuantity(btn.dataset.tier, 1));
+                });
+                body.querySelectorAll('.bag-item-remove').forEach(btn => {
+                    btn.addEventListener('click', () => removeFromBag(btn.dataset.tier));
+                });
             }
 
-            footer.style.display = 'block';
-            document.getElementById('bag-total').textContent = '$' + total;
-            document.getElementById('bag-pay-error').classList.remove('show');
-            updateBagSteps();
-
-            body.innerHTML = bag.map(item => {
-                const isCase = ['Small', 'Medium', 'Large'].includes(item.tier);
-                const label = isCase ? item.tier + ' Case' : item.tier;
-                return `
-                <div class="bag-item">
-                    <div class="bag-item-info">
-                        <div class="bag-item-name">${label}</div>
-                        <div class="bag-item-price">$${item.price} × ${item.qty} = $${item.price * item.qty}</div>
-                    </div>
-                    <div class="bag-item-controls">
-                        <button type="button" class="bag-qty-btn bag-qty-minus" data-tier="${item.tier}" aria-label="Decrease quantity">−</button>
-                        <span class="bag-qty-num">${item.qty}</span>
-                        <button type="button" class="bag-qty-btn bag-qty-plus" data-tier="${item.tier}" aria-label="Increase quantity">+</button>
-                        <button type="button" class="bag-item-remove" data-tier="${item.tier}">Remove</button>
-                    </div>
-                </div>
-            `}).join('');
-
-            body.querySelectorAll('.bag-qty-minus').forEach(btn => {
-                btn.addEventListener('click', () => updateQuantity(btn.dataset.tier, -1));
-            });
-            body.querySelectorAll('.bag-qty-plus').forEach(btn => {
-                btn.addEventListener('click', () => updateQuantity(btn.dataset.tier, 1));
-            });
-            body.querySelectorAll('.bag-item-remove').forEach(btn => {
-                btn.addEventListener('click', () => removeFromBag(btn.dataset.tier));
-            });
+            updateTotal(); // Update total when bag renders
         }
 
         async function handlePay() {
             const name = (document.getElementById('bag-name')?.value || '').trim();
             const cashtag = (document.getElementById('bag-cashtag')?.value || '').trim();
             const address = (document.getElementById('bag-address')?.value || '').trim();
+            const zip = extractZipFromAddress(address);
             const errorEl = document.getElementById('bag-pay-error');
             const btn = document.getElementById('bag-pay-btn');
 
             if (!name || !cashtag || !address) {
-                errorEl.textContent = 'Please fill in all shipping fields before paying.';
+                errorEl.textContent = 'Please fill in all shipping fields including ZIP code in address.';
+                errorEl.classList.add('show');
+                return;
+            }
+
+            if (!zip) {
+                errorEl.textContent = 'Please include a 5-digit ZIP code in your shipping address.';
+                errorEl.classList.add('show');
+                return;
+            }
+
+            if (selectedShipping === 0) {
+                errorEl.textContent = 'Please select a shipping method before paying.';
                 errorEl.classList.add('show');
                 return;
             }
 
             const bag = getBag();
-            const total = bag.reduce((sum, i) => sum + i.price * i.qty, 0);
+            const subtotal = bag.reduce((sum, i) => sum + i.price * i.qty, 0);
+            const total = subtotal + selectedShipping;
             const orderStr = bag.map(i => {
                 const label = ['Small','Medium','Large'].includes(i.tier) ? i.tier + ' Case' : i.tier;
                 return `${label} ×${i.qty} ($${i.price * i.qty})`;
@@ -772,6 +839,8 @@
                 fd.append('cashtag', cashtag);
                 fd.append('order', orderStr);
                 fd.append('address', address);
+                fd.append('shipping', `$${selectedShipping.toFixed(2)}`);
+                fd.append('total', `$${total.toFixed(2)}`);
 
                 const res = await fetch(FORMSPREE_URL, {
                     method: 'POST',
@@ -791,6 +860,109 @@
                 btn.textContent = 'Pay via Cash App';
             }
         }
+
+        // Shipping calculation
+        let selectedShipping = 0;
+        const ORIGIN_ZIP = '48915'; // Lansing, MI
+
+        function calculateShippingRates(zip) {
+            // Simplified shipping rates based on distance zones
+            // In production, you'd use UPS API or similar service
+            const rates = {
+                ground: { name: 'UPS Ground', days: '3-5 business days', base: 8.99 },
+                '2nd-day': { name: 'UPS 2nd Day Air', days: '2 business days', base: 14.99 },
+                'next-day': { name: 'UPS Next Day Air', days: '1 business day', base: 24.99 }
+            };
+
+            // Calculate distance zones (simplified)
+            const distance = getDistanceZone(ORIGIN_ZIP, zip);
+            const multiplier = 1 + (distance * 0.1); // 10% increase per zone
+
+            Object.keys(rates).forEach(key => {
+                rates[key].price = (rates[key].base * multiplier).toFixed(2);
+            });
+
+            return rates;
+        }
+
+        function getDistanceZone(fromZip, toZip) {
+            // Simplified zone calculation based on first digit of ZIP
+            const fromZone = parseInt(fromZip[0]);
+            const toZone = parseInt(toZip[0]);
+            return Math.abs(fromZone - toZone);
+        }
+
+        function renderShippingOptions(rates) {
+            const methodsDiv = document.getElementById('shipping-methods');
+            methodsDiv.innerHTML = Object.entries(rates).map(([key, rate]) => `
+                <div style="margin-bottom: 8px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer;" 
+                     onclick="selectShipping('${key}', ${rate.price})" id="shipping-${key}">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-weight: 600; font-size: 0.85rem;">${rate.name}</div>
+                            <div style="font-size: 0.75rem; color: #666;">${rate.days}</div>
+                        </div>
+                        <div style="font-weight: 600; color: var(--gold);">$${rate.price}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectShipping(method, price) {
+            selectedShipping = parseFloat(price);
+            
+            // Update UI
+            document.querySelectorAll('[id^="shipping-"]').forEach(el => {
+                el.style.borderColor = '#ddd';
+                el.style.background = 'white';
+            });
+            document.getElementById(`shipping-${method}`).style.borderColor = 'var(--gold)';
+            document.getElementById(`shipping-${method}`).style.background = 'var(--cream)';
+            
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const bag = getBag();
+            const subtotal = bag.reduce((sum, i) => sum + i.price * i.qty, 0);
+            const total = subtotal + selectedShipping;
+            
+            const totalDiv = document.getElementById('bag-total');
+            totalDiv.innerHTML = `
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem;">
+                    <span>Subtotal</span>
+                    <span>$${subtotal.toFixed(2)}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px; color: #666; font-size: 0.85rem;">
+                    <span>Shipping</span>
+                    <span>${selectedShipping > 0 ? `$${selectedShipping.toFixed(2)}` : '--'}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 1.1rem; color: var(--slate); padding-top: 8px; border-top: 1px solid #ddd;">
+                    <span>Total</span>
+                    <span>$${total.toFixed(2)}</span>
+                </div>
+            `;
+        }
+
+        // Auto-calculate shipping when address changes
+        function extractZipFromAddress(address) {
+            const zipMatch = address.match(/\b(\d{5})\b/);
+            return zipMatch ? zipMatch[1] : null;
+        }
+
+        document.getElementById('bag-address').addEventListener('input', (e) => {
+            const zip = extractZipFromAddress(e.target.value);
+            
+            if (zip) {
+                const rates = calculateShippingRates(zip);
+                renderShippingOptions(rates);
+                document.getElementById('shipping-options').style.display = 'block';
+            } else {
+                document.getElementById('shipping-options').style.display = 'none';
+                selectedShipping = 0;
+                updateTotal();
+            }
+        });
 
         document.getElementById('bag-pay-btn').addEventListener('click', handlePay);
 
